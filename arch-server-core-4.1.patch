@@ -1,6 +1,6 @@
 diff -uprN pi-hole-4.1/adlists.list pi-hole-4.1.cust/adlists.list
 --- pi-hole-4.1/adlists.list	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-4.1.cust/adlists.list	2018-12-11 10:56:56.183810363 +0100
++++ pi-hole-4.1.cust/adlists.list	2018-12-12 08:47:45.793093001 +0100
 @@ -0,0 +1,7 @@
 +https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 +https://mirror1.malwaredomains.com/files/justdomains
@@ -11,7 +11,7 @@ diff -uprN pi-hole-4.1/adlists.list pi-hole-4.1.cust/adlists.list
 +https://hosts-file.net/ad_servers.txt
 diff -uprN pi-hole-4.1/advanced/Scripts/chronometer.sh pi-hole-4.1.cust/advanced/Scripts/chronometer.sh
 --- pi-hole-4.1/advanced/Scripts/chronometer.sh	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/advanced/Scripts/chronometer.sh	2018-12-11 10:56:56.130477186 +0100
++++ pi-hole-4.1.cust/advanced/Scripts/chronometer.sh	2018-12-12 08:47:45.743094451 +0100
 @@ -13,7 +13,7 @@ LC_NUMERIC=C
  
  # Retrieve stats from FTL engine
@@ -23,7 +23,7 @@ diff -uprN pi-hole-4.1/advanced/Scripts/chronometer.sh pi-hole-4.1.cust/advanced
          exec 3<>"/dev/tcp/127.0.0.1/$ftl_port"
 diff -uprN pi-hole-4.1/advanced/Scripts/piholeLogFlush.sh pi-hole-4.1.cust/advanced/Scripts/piholeLogFlush.sh
 --- pi-hole-4.1/advanced/Scripts/piholeLogFlush.sh	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/advanced/Scripts/piholeLogFlush.sh	2018-12-11 10:56:56.127143861 +0100
++++ pi-hole-4.1.cust/advanced/Scripts/piholeLogFlush.sh	2018-12-12 08:47:45.739761215 +0100
 @@ -26,33 +26,33 @@ if [ -z "$DBFILE" ]; then
  fi
  
@@ -79,7 +79,7 @@ diff -uprN pi-hole-4.1/advanced/Scripts/piholeLogFlush.sh pi-hole-4.1.cust/advan
  fi
 diff -uprN pi-hole-4.1/advanced/Scripts/version.sh pi-hole-4.1.cust/advanced/Scripts/version.sh
 --- pi-hole-4.1/advanced/Scripts/version.sh	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/advanced/Scripts/version.sh	2018-12-11 10:56:56.157143775 +0100
++++ pi-hole-4.1.cust/advanced/Scripts/version.sh	2018-12-12 08:47:45.766427107 +0100
 @@ -11,7 +11,7 @@
  # Variables
  DEFAULT="-1"
@@ -91,7 +91,7 @@ diff -uprN pi-hole-4.1/advanced/Scripts/version.sh pi-hole-4.1.cust/advanced/Scr
      # FTL requires a different method
 diff -uprN pi-hole-4.1/advanced/Scripts/webpage.sh pi-hole-4.1.cust/advanced/Scripts/webpage.sh
 --- pi-hole-4.1/advanced/Scripts/webpage.sh	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/advanced/Scripts/webpage.sh	2018-12-11 10:56:56.113810567 +0100
++++ pi-hole-4.1.cust/advanced/Scripts/webpage.sh	2018-12-12 08:47:45.726428269 +0100
 @@ -274,7 +274,7 @@ Reboot() {
  }
  
@@ -103,7 +103,7 @@ diff -uprN pi-hole-4.1/advanced/Scripts/webpage.sh pi-hole-4.1.cust/advanced/Scr
  SetQueryLogOptions() {
 diff -uprN pi-hole-4.1/advanced/Templates/logrotate pi-hole-4.1.cust/advanced/Templates/logrotate
 --- pi-hole-4.1/advanced/Templates/logrotate	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/advanced/Templates/logrotate	2018-12-11 10:56:56.123810538 +0100
++++ pi-hole-4.1.cust/advanced/Templates/logrotate	2018-12-12 08:47:45.739761215 +0100
 @@ -1,4 +1,4 @@
 -/var/log/pihole.log {
 +/run/log/pihole/pihole.log {
@@ -121,7 +121,7 @@ diff -uprN pi-hole-4.1/advanced/Templates/logrotate pi-hole-4.1.cust/advanced/Te
  	copytruncate
 diff -uprN pi-hole-4.1/advanced/Templates/pihole.sudo pi-hole-4.1.cust/advanced/Templates/pihole.sudo
 --- pi-hole-4.1/advanced/Templates/pihole.sudo	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/advanced/Templates/pihole.sudo	2018-12-11 10:56:56.183810363 +0100
++++ pi-hole-4.1.cust/advanced/Templates/pihole.sudo	2018-12-12 08:47:45.793093001 +0100
 @@ -7,3 +7,4 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
@@ -129,7 +129,7 @@ diff -uprN pi-hole-4.1/advanced/Templates/pihole.sudo pi-hole-4.1.cust/advanced/
 +http ALL=NOPASSWD: /usr/bin/pihole
 diff -uprN pi-hole-4.1/advanced/dnsmasq.conf.original pi-hole-4.1.cust/advanced/dnsmasq.conf.original
 --- pi-hole-4.1/advanced/dnsmasq.conf.original	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/advanced/dnsmasq.conf.original	2018-12-11 10:56:56.183810363 +0100
++++ pi-hole-4.1.cust/advanced/dnsmasq.conf.original	2018-12-12 08:47:45.793093001 +0100
 @@ -646,3 +646,4 @@
  
  # Include all files in a directory which end in .conf
@@ -137,7 +137,7 @@ diff -uprN pi-hole-4.1/advanced/dnsmasq.conf.original pi-hole-4.1.cust/advanced/
 +conf-dir=/etc/dnsmasq.d/,*.conf
 diff -uprN pi-hole-4.1/gravity.sh pi-hole-4.1.cust/gravity.sh
 --- pi-hole-4.1/gravity.sh	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/gravity.sh	2018-12-11 10:56:56.110477244 +0100
++++ pi-hole-4.1.cust/gravity.sh	2018-12-12 08:47:45.726428269 +0100
 @@ -19,7 +19,7 @@ regexconverter="/opt/pihole/wildcard_reg
  source "${regexconverter}"
  
@@ -149,7 +149,7 @@ diff -uprN pi-hole-4.1/gravity.sh pi-hole-4.1.cust/gravity.sh
  
 diff -uprN pi-hole-4.1/pihole pi-hole-4.1.cust/pihole
 --- pi-hole-4.1/pihole	2018-12-09 21:33:58.000000000 +0100
-+++ pi-hole-4.1.cust/pihole	2018-12-11 10:56:56.117143891 +0100
++++ pi-hole-4.1.cust/pihole	2018-12-12 08:47:45.729761504 +0100
 @@ -13,7 +13,6 @@ readonly PI_HOLE_SCRIPT_DIR="/opt/pihole
  readonly gravitylist="/etc/pihole/gravity.list"
  readonly blacklist="/etc/pihole/black.list"
