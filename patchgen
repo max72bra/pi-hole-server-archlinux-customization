@@ -240,4 +240,4 @@ diff -uprN $diradmina $diradminb > arch-server-admin-$pkgver.patch
 
 git add arch-server-core-$pkgver.patch
 git add arch-server-admin-$pkgver.patch
-
+git add patchgen
