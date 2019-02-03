@@ -1,12 +1,12 @@
 #!/bin/sh
 
-pkgver=4.2
+pkgver=4.2.1
 _wwwpkgver=4.2
 source_core="https://github.com/pi-hole/pi-hole/archive/v$pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$pkgver"
 dircoreb="$dircorea.cust"
-diradmina="AdminLTE-$pkgver"
+diradmina="AdminLTE-$_wwwpkgver"
 diradminb="$diradmina.cust"
 
 _ssc="/tmp/sedcontrol"
