@@ -1,6 +1,6 @@
 diff -uprN AdminLTE-4.3/api.php AdminLTE-4.3.cust/api.php
 --- AdminLTE-4.3/api.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/api.php	2019-05-19 09:30:48.843224380 +0200
++++ AdminLTE-4.3.cust/api.php	2019-05-19 10:27:34.125122834 +0200
 @@ -20,7 +20,7 @@ $data = array();
  // Common API functions
  if (isset($_GET['status']))
@@ -36,7 +36,7 @@ diff -uprN AdminLTE-4.3/api.php AdminLTE-4.3.cust/api.php
  	$data = array_merge($data, array("status" => "disabled"));
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/FTL.php AdminLTE-4.3.cust/scripts/pi-hole/php/FTL.php
 --- AdminLTE-4.3/scripts/pi-hole/php/FTL.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/FTL.php	2019-05-19 09:30:48.806557926 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/FTL.php	2019-05-19 10:27:34.095122912 +0200
 @@ -11,7 +11,7 @@ function connectFTL($address, $port=4711
  	if($address == "127.0.0.1")
  	{
@@ -48,7 +48,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/FTL.php AdminLTE-4.3.cust/scripts/pi
  	}
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/add.php AdminLTE-4.3.cust/scripts/pi-hole/php/add.php
 --- AdminLTE-4.3/scripts/pi-hole/php/add.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/add.php	2019-05-19 09:30:48.853224322 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/add.php	2019-05-19 10:27:34.135122808 +0200
 @@ -25,20 +25,20 @@ if($type !== "regex") {
  switch($type) {
      case "white":
@@ -87,7 +87,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/add.php AdminLTE-4.3.cust/scripts/pi
  
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/footer.php AdminLTE-4.3.cust/scripts/pi-hole/php/footer.php
 --- AdminLTE-4.3/scripts/pi-hole/php/footer.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/footer.php	2019-05-19 09:30:48.839891066 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/footer.php	2019-05-19 10:27:34.121789509 +0200
 @@ -52,15 +52,15 @@
              <b>Pi-hole Version </b> <?php
              echo $core_current;
@@ -109,7 +109,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/footer.php AdminLTE-4.3.cust/scripts
      </footer>
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/gravity.sh.php AdminLTE-4.3.cust/scripts/pi-hole/php/gravity.sh.php
 --- AdminLTE-4.3/scripts/pi-hole/php/gravity.sh.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/gravity.sh.php	2019-05-19 09:30:48.856557635 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/gravity.sh.php	2019-05-19 10:27:34.138456133 +0200
 @@ -30,7 +30,7 @@ function echoEvent($datatext) {
      echo "data: ".implode("\ndata: ", explode("\n",$datatext))."\n\n";
  }
@@ -121,7 +121,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/gravity.sh.php AdminLTE-4.3.cust/scr
  }
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/header.php AdminLTE-4.3.cust/scripts/pi-hole/php/header.php
 --- AdminLTE-4.3/scripts/pi-hole/php/header.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/header.php	2019-05-19 09:30:48.843224380 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/header.php	2019-05-19 10:27:34.125122834 +0200
 @@ -323,7 +323,7 @@ if($auth) {
                  <div class="pull-left info">
                      <p>Status</p>
@@ -146,7 +146,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/header.php AdminLTE-4.3.cust/scripts
                  <!-- Network -->
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/loginpage.php AdminLTE-4.3.cust/scripts/pi-hole/php/loginpage.php
 --- AdminLTE-4.3/scripts/pi-hole/php/loginpage.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/loginpage.php	2019-05-19 09:30:48.859890950 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/loginpage.php	2019-05-19 10:27:34.141789457 +0200
 @@ -59,7 +59,7 @@
                  After installing Pi-hole for the first time, a password is generated and displayed to the user. The
                  password cannot be retrieved later on, but it is possible to set a new password (or explicitly disable
@@ -158,7 +158,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/loginpage.php AdminLTE-4.3.cust/scri
            </div>
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/queryads.php AdminLTE-4.3.cust/scripts/pi-hole/php/queryads.php
 --- AdminLTE-4.3/scripts/pi-hole/php/queryads.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/queryads.php	2019-05-19 09:30:48.846557694 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/queryads.php	2019-05-19 10:27:34.128456159 +0200
 @@ -61,7 +61,7 @@ else
      $exact = "";
  }
@@ -170,7 +170,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/queryads.php AdminLTE-4.3.cust/scrip
  }
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/savesettings.php AdminLTE-4.3.cust/scripts/pi-hole/php/savesettings.php
 --- AdminLTE-4.3/scripts/pi-hole/php/savesettings.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/savesettings.php	2019-05-19 09:30:48.849891007 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/savesettings.php	2019-05-19 10:27:34.131789483 +0200
 @@ -331,13 +331,13 @@ function readAdlists()
  					// Fallback
  					$DNSinterface = "local";
@@ -410,7 +410,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/savesettings.php AdminLTE-4.3.cust/s
  					elseif($privacylevel < $level)
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/sub.php AdminLTE-4.3.cust/scripts/pi-hole/php/sub.php
 --- AdminLTE-4.3/scripts/pi-hole/php/sub.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/sub.php	2019-05-19 09:30:48.849891007 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/sub.php	2019-05-19 10:27:34.135122808 +0200
 @@ -24,10 +24,10 @@ if($type !== "regex") {
  
  switch($type) {
@@ -435,7 +435,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/sub.php AdminLTE-4.3.cust/scripts/pi
  }
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/tailLog.php AdminLTE-4.3.cust/scripts/pi-hole/php/tailLog.php
 --- AdminLTE-4.3/scripts/pi-hole/php/tailLog.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/tailLog.php	2019-05-19 09:30:48.813224554 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/tailLog.php	2019-05-19 10:27:34.101789561 +0200
 @@ -14,11 +14,11 @@ if(!$auth) die("Not authorized");
  // files as large as the pihole.log
  if(isset($_GET["FTL"]))
@@ -452,7 +452,7 @@ diff -uprN AdminLTE-4.3/scripts/pi-hole/php/tailLog.php AdminLTE-4.3.cust/script
  if(!$file)
 diff -uprN AdminLTE-4.3/scripts/pi-hole/php/update_checker.php AdminLTE-4.3.cust/scripts/pi-hole/php/update_checker.php
 --- AdminLTE-4.3/scripts/pi-hole/php/update_checker.php	2019-05-18 22:08:56.000000000 +0200
-+++ AdminLTE-4.3.cust/scripts/pi-hole/php/update_checker.php	2019-05-19 09:30:48.829891124 +0200
++++ AdminLTE-4.3.cust/scripts/pi-hole/php/update_checker.php	2019-05-19 10:27:34.111789535 +0200
 @@ -7,12 +7,12 @@ $GitHubVersions = "/etc/pihole/GitHubVer
  if(!is_readable($localversions) || !is_readable($localbranches) || !is_readable($GitHubVersions))
  {
