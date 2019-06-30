@@ -248,7 +248,7 @@ Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
 EOF
 
 diff -uprN $dircorea $dircoreb > arch-server-core-$pkgver.patch
-diff -uprN $diradmina $diradminb > arch-server-admin-$pkgver.patch
+diff -uprN $diradmina $diradminb > arch-server-admin-$_wwwpkgver.patch
 
 git add arch-server-core-$pkgver.patch
 git add arch-server-admin-$pkgver.patch
