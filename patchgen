@@ -1,10 +1,10 @@
 #!/bin/sh
 
-pkgver=4.3.1
+_pkgver=4.3.2
 _wwwpkgver=4.3
-source_core="https://github.com/pi-hole/pi-hole/archive/v$pkgver.tar.gz"
+source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
-dircorea="pi-hole-$pkgver"
+dircorea="pi-hole-$_pkgver"
 dircoreb="$dircorea.cust"
 diradmina="AdminLTE-$_wwwpkgver"
 diradminb="$diradmina.cust"
@@ -16,15 +16,15 @@ _ssc="/tmp/sedcontrol"
 [[ -d $diradmina ]] && rm -r $diradmina
 [[ -d $diradminb ]] && rm -r $diradminb
 
-wget -q -nc -O pihole-$pkgver.tar.gz $source_core
+wget -q -nc -O pihole-$_pkgver.tar.gz $source_core
 wget -q -nc -O admin-$_wwwpkgver.tar.gz $source_admin
-tar xf pihole-$pkgver.tar.gz
+tar xf pihole-$_pkgver.tar.gz
 tar xf admin-$_wwwpkgver.tar.gz
 cp -a $dircorea $dircoreb
 cp -a $diradmina $diradminb
 
 # the return of service management
-sed -i "s|service \${resolver} \${svcOption}|systemctl \${svcOption} \${resolver}|w $_ssc" "$dircoreb"/pihole
+sed -i "s|service \${resolver} restart|systemctl restart \${resolver}|w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: the return of service management" && exit 1 ; fi
 
 # setting up and securing pihole wrapper script
@@ -92,7 +92,7 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 
 # -----------------
 
 # setting up and securing webpage.sh script
-sed -i "s|/usr/local/bin/|/usr/bin/|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
+sed -i "s|/usr/local/bin|/usr/bin|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up and securing webpage.sh script 1" && exit 1 ; fi
 
 # -----------------
@@ -156,7 +156,7 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log locati
 
 sed -n "/\$core_current =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 3" && exit 1 ; fi
-sed -i 's/\$core_current =.*$/\$core_current = "'"$pkgver"'";/' "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i 's/\$core_current =.*$/\$core_current = "'"$_pkgver"'";/' "$diradminb"/scripts/pi-hole/php/update_checker.php
 sed -n "/\$web_current =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 4" && exit 1 ; fi
 sed -i 's/\$web_current =.*$/\$web_current = "'"$_wwwpkgver"'";/' "$diradminb"/scripts/pi-hole/php/update_checker.php
@@ -174,13 +174,13 @@ sed -i 's/\$FTL_current =.*$/\$FTL_current = exec("pihole-FTL version");/' "$dir
 sed -i "s|/var/www/html/admin/|/srv/http/pihole/admin/|w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 8" && exit 1 ; fi
 
-#cd "$srcdir"/"$_pkgname"-"$pkgver"
+#cd "$srcdir"/"$_pkgname"-"$_pkgver"
 #patch -p1 -i "$srcdir"/version.patch
 #cd "$srcdir"
 
 #sed -n "/{{corever}}/w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
 #if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 9" && exit 1 ; fi
-#sed -i "s/{{corever}}/$pkgver/" "$dircoreb"/advanced/Scripts/version.sh
+#sed -i "s/{{corever}}/$_pkgver/" "$dircoreb"/advanced/Scripts/version.sh
 #sed -n "/{{webver}}/w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
 #if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 10" && exit 1 ; fi
 #sed -i "s/{{webver}}/$_wwwpkgver/" "$dircoreb"/advanced/Scripts/version.sh
@@ -247,9 +247,9 @@ Quad9 (filtered + ECS);9.9.9.11;149.112.112.11;2620:fe::11;
 Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
 EOF
 
-diff -uprN $dircorea $dircoreb > arch-server-core-$pkgver.patch
+diff -uprN $dircorea $dircoreb > arch-server-core-$_pkgver.patch
 diff -uprN $diradmina $diradminb > arch-server-admin-$_wwwpkgver.patch
 
-git add arch-server-core-$pkgver.patch
-git add arch-server-admin-$pkgver.patch
+git add arch-server-core-$_pkgver.patch
+git add arch-server-admin-$_wwwpkgver.patch
 git add patchgen
