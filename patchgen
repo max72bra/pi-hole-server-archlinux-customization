@@ -89,6 +89,10 @@ sed -i '/tricorder/d' "$dircoreb"/pihole
 sed -i "s|/usr/local/bin/|/usr/bin/|w $_ssc" "$dircoreb"/gravity.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 1" && exit 1 ; fi
 
+# setup pihole
+sed -i "s|/usr/local/bin|/usr/bin|w $_ssc" "$dircoreb"/pihole
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup pihole 1" && exit 1 ; fi
+
 # -----------------
 
 # setting up and securing webpage.sh script
