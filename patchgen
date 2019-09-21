@@ -23,6 +23,20 @@ tar xf admin-$_wwwpkgver.tar.gz
 cp -a $dircorea $dircoreb
 cp -a $diradmina $diradminb
 
+# ================
+# version.sh patch
+# ================
+cp -a version.patch version-${_pkgver}.patch
+sed -i "s|{{_pkgver}}|${_pkgver}|w $_ssc" ./version-${_pkgver}.patch
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: version.sh patch 1" && exit 1 ; fi
+cd "$dircoreb"
+patch -p1 -i ../version-${_pkgver}.patch
+cd ..
+rm version-${_pkgver}.patch
+# ================
+# version.sh patch
+# ================
+
 # the return of service management
 sed -i "s|service \${resolver} restart|systemctl restart \${resolver}|w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: the return of service management" && exit 1 ; fi

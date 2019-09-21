@@ -1,6 +1,6 @@
 diff -uprN pi-hole-4.3.2/adlists.list pi-hole-4.3.2.cust/adlists.list
 --- pi-hole-4.3.2/adlists.list	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-4.3.2.cust/adlists.list	2019-09-17 19:09:12.796227765 +0200
++++ pi-hole-4.3.2.cust/adlists.list	2019-09-21 12:37:48.803575104 +0200
 @@ -0,0 +1,7 @@
 +https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 +https://mirror1.malwaredomains.com/files/justdomains
@@ -11,7 +11,7 @@ diff -uprN pi-hole-4.3.2/adlists.list pi-hole-4.3.2.cust/adlists.list
 +https://hosts-file.net/ad_servers.txt
 diff -uprN pi-hole-4.3.2/advanced/Scripts/chronometer.sh pi-hole-4.3.2.cust/advanced/Scripts/chronometer.sh
 --- pi-hole-4.3.2/advanced/Scripts/chronometer.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/chronometer.sh	2019-09-17 19:09:12.740227855 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/chronometer.sh	2019-09-21 12:37:48.751575298 +0200
 @@ -13,7 +13,7 @@ LC_NUMERIC=C
  
  # Retrieve stats from FTL engine
@@ -23,7 +23,7 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/chronometer.sh pi-hole-4.3.2.cust/adva
          exec 3<>"/dev/tcp/127.0.0.1/$ftl_port"
 diff -uprN pi-hole-4.3.2/advanced/Scripts/piholeLogFlush.sh pi-hole-4.3.2.cust/advanced/Scripts/piholeLogFlush.sh
 --- pi-hole-4.3.2/advanced/Scripts/piholeLogFlush.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/piholeLogFlush.sh	2019-09-17 19:09:12.738227859 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/piholeLogFlush.sh	2019-09-21 12:37:48.749575306 +0200
 @@ -26,33 +26,33 @@ if [ -z "$DBFILE" ]; then
  fi
  
@@ -79,7 +79,7 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/piholeLogFlush.sh pi-hole-4.3.2.cust/a
  fi
 diff -uprN pi-hole-4.3.2/advanced/Scripts/version.sh pi-hole-4.3.2.cust/advanced/Scripts/version.sh
 --- pi-hole-4.3.2/advanced/Scripts/version.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/version.sh	2019-09-17 19:09:12.768227810 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/version.sh	2019-09-21 12:37:48.776575205 +0200
 @@ -11,7 +11,7 @@
  # Variables
  DEFAULT="-1"
@@ -89,9 +89,56 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/version.sh pi-hole-4.3.2.cust/advanced
  
  getLocalVersion() {
      # FTL requires a different method
+@@ -20,42 +20,16 @@ getLocalVersion() {
+         return 0
+     fi
+ 
+-    # Get the tagged version of the local repository
+-    local directory="${1}"
+-    local version
+-
+-    cd "${directory}" 2> /dev/null || { echo "${DEFAULT}"; return 1; }
+-    version=$(git describe --tags --always || echo "$DEFAULT")
+-    if [[ "${version}" =~ ^v ]]; then
+-        echo "${version}"
+-    elif [[ "${version}" == "${DEFAULT}" ]]; then
+-        echo "ERROR"
+-        return 1
++    if [[ "$1" == "pi-hole" ]]; then
++        echo "4.3.2"
+     else
+-        echo "Untagged"
++        echo "4.3.2"
+     fi
+     return 0
+ }
+ 
+ getLocalHash() {
+-    # Local FTL hash does not exist on filesystem
+-    if [[ "$1" == "FTL" ]]; then
+-        echo "N/A"
+-        return 0
+-    fi
+-
+-    # Get the short hash of the local repository
+-    local directory="${1}"
+-    local hash
+-
+-    cd "${directory}" 2> /dev/null || { echo "${DEFAULT}"; return 1; }
+-    hash=$(git rev-parse --short HEAD || echo "$DEFAULT")
+-    if [[ "${hash}" == "${DEFAULT}" ]]; then
+-        echo "ERROR"
+-        return 1
+-    else
+-        echo "${hash}"
+-    fi
++    echo "N/A"
+     return 0
+ }
+ 
 diff -uprN pi-hole-4.3.2/advanced/Scripts/webpage.sh pi-hole-4.3.2.cust/advanced/Scripts/webpage.sh
 --- pi-hole-4.3.2/advanced/Scripts/webpage.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/webpage.sh	2019-09-17 19:09:12.720227887 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/webpage.sh	2019-09-21 12:37:48.736575354 +0200
 @@ -16,7 +16,7 @@ readonly dhcpconfig="/etc/dnsmasq.d/02-p
  readonly FTLconf="/etc/pihole/pihole-FTL.conf"
  # 03 -> wildcards
@@ -103,7 +150,7 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/webpage.sh pi-hole-4.3.2.cust/advanced
  if [[ -f ${coltable} ]]; then
 diff -uprN pi-hole-4.3.2/advanced/Templates/logrotate pi-hole-4.3.2.cust/advanced/Templates/logrotate
 --- pi-hole-4.3.2/advanced/Templates/logrotate	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Templates/logrotate	2019-09-17 19:09:12.735227863 +0200
++++ pi-hole-4.3.2.cust/advanced/Templates/logrotate	2019-09-21 12:37:48.747575313 +0200
 @@ -1,4 +1,4 @@
 -/var/log/pihole.log {
 +/run/log/pihole/pihole.log {
@@ -121,7 +168,7 @@ diff -uprN pi-hole-4.3.2/advanced/Templates/logrotate pi-hole-4.3.2.cust/advance
  	copytruncate
 diff -uprN pi-hole-4.3.2/advanced/Templates/pihole.sudo pi-hole-4.3.2.cust/advanced/Templates/pihole.sudo
 --- pi-hole-4.3.2/advanced/Templates/pihole.sudo	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Templates/pihole.sudo	2019-09-17 19:09:12.795227767 +0200
++++ pi-hole-4.3.2.cust/advanced/Templates/pihole.sudo	2019-09-21 12:37:48.803575104 +0200
 @@ -7,3 +7,4 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
@@ -129,7 +176,7 @@ diff -uprN pi-hole-4.3.2/advanced/Templates/pihole.sudo pi-hole-4.3.2.cust/advan
 +http ALL=NOPASSWD: /usr/bin/pihole
 diff -uprN pi-hole-4.3.2/advanced/dnsmasq.conf.original pi-hole-4.3.2.cust/advanced/dnsmasq.conf.original
 --- pi-hole-4.3.2/advanced/dnsmasq.conf.original	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/dnsmasq.conf.original	2019-09-17 19:09:12.795227767 +0200
++++ pi-hole-4.3.2.cust/advanced/dnsmasq.conf.original	2019-09-21 12:37:48.803575104 +0200
 @@ -646,3 +646,4 @@
  
  # Include all files in a directory which end in .conf
@@ -137,7 +184,7 @@ diff -uprN pi-hole-4.3.2/advanced/dnsmasq.conf.original pi-hole-4.3.2.cust/advan
 +conf-dir=/etc/dnsmasq.d/,*.conf
 diff -uprN pi-hole-4.3.2/dns-servers.conf pi-hole-4.3.2.cust/dns-servers.conf
 --- pi-hole-4.3.2/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-4.3.2.cust/dns-servers.conf	2019-09-17 19:09:12.796227765 +0200
++++ pi-hole-4.3.2.cust/dns-servers.conf	2019-09-21 12:37:48.804575101 +0200
 @@ -0,0 +1,9 @@
 +Google (ECS);8.8.8.8;8.8.4.4;2001:4860:4860:0:0:0:0:8888;2001:4860:4860:0:0:0:0:8844
 +OpenDNS (ECS);208.67.222.222;208.67.220.220;2620:0:ccc::2;2620:0:ccd::2
@@ -150,7 +197,7 @@ diff -uprN pi-hole-4.3.2/dns-servers.conf pi-hole-4.3.2.cust/dns-servers.conf
 +Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
 diff -uprN pi-hole-4.3.2/gravity.sh pi-hole-4.3.2.cust/gravity.sh
 --- pi-hole-4.3.2/gravity.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/gravity.sh	2019-09-17 19:09:12.714227897 +0200
++++ pi-hole-4.3.2.cust/gravity.sh	2019-09-21 12:37:48.731575373 +0200
 @@ -19,7 +19,7 @@ regexconverter="/opt/pihole/wildcard_reg
  source "${regexconverter}"
  
@@ -162,7 +209,7 @@ diff -uprN pi-hole-4.3.2/gravity.sh pi-hole-4.3.2.cust/gravity.sh
  
 diff -uprN pi-hole-4.3.2/pihole pi-hole-4.3.2.cust/pihole
 --- pi-hole-4.3.2/pihole	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/pihole	2019-09-17 19:09:12.723227883 +0200
++++ pi-hole-4.3.2.cust/pihole	2019-09-21 12:37:48.738575347 +0200
 @@ -13,11 +13,10 @@ readonly PI_HOLE_SCRIPT_DIR="/opt/pihole
  readonly gravitylist="/etc/pihole/gravity.list"
  readonly blacklist="/etc/pihole/black.list"
