@@ -1,6 +1,6 @@
 diff -uprN pi-hole-4.3.2/adlists.list pi-hole-4.3.2.cust/adlists.list
 --- pi-hole-4.3.2/adlists.list	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-4.3.2.cust/adlists.list	2019-09-24 17:39:11.859971111 +0200
++++ pi-hole-4.3.2.cust/adlists.list	2020-02-18 20:57:58.996844330 +0100
 @@ -0,0 +1,6 @@
 +https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 +https://mirror1.malwaredomains.com/files/justdomains
@@ -10,7 +10,7 @@ diff -uprN pi-hole-4.3.2/adlists.list pi-hole-4.3.2.cust/adlists.list
 +https://hosts-file.net/ad_servers.txt
 diff -uprN pi-hole-4.3.2/advanced/Scripts/chronometer.sh pi-hole-4.3.2.cust/advanced/Scripts/chronometer.sh
 --- pi-hole-4.3.2/advanced/Scripts/chronometer.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/chronometer.sh	2019-09-24 17:39:11.800971198 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/chronometer.sh	2020-02-18 20:57:58.933844356 +0100
 @@ -13,7 +13,7 @@ LC_NUMERIC=C
  
  # Retrieve stats from FTL engine
@@ -22,7 +22,7 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/chronometer.sh pi-hole-4.3.2.cust/adva
          exec 3<>"/dev/tcp/127.0.0.1/$ftl_port"
 diff -uprN pi-hole-4.3.2/advanced/Scripts/piholeLogFlush.sh pi-hole-4.3.2.cust/advanced/Scripts/piholeLogFlush.sh
 --- pi-hole-4.3.2/advanced/Scripts/piholeLogFlush.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/piholeLogFlush.sh	2019-09-24 17:39:11.798971201 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/piholeLogFlush.sh	2020-02-18 20:57:58.929844358 +0100
 @@ -26,33 +26,33 @@ if [ -z "$DBFILE" ]; then
  fi
  
@@ -78,7 +78,7 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/piholeLogFlush.sh pi-hole-4.3.2.cust/a
  fi
 diff -uprN pi-hole-4.3.2/advanced/Scripts/version.sh pi-hole-4.3.2.cust/advanced/Scripts/version.sh
 --- pi-hole-4.3.2/advanced/Scripts/version.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/version.sh	2019-09-24 17:39:11.828971157 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/version.sh	2020-02-18 20:57:58.962844344 +0100
 @@ -11,7 +11,7 @@
  # Variables
  DEFAULT="-1"
@@ -137,7 +137,7 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/version.sh pi-hole-4.3.2.cust/advanced
  
 diff -uprN pi-hole-4.3.2/advanced/Scripts/webpage.sh pi-hole-4.3.2.cust/advanced/Scripts/webpage.sh
 --- pi-hole-4.3.2/advanced/Scripts/webpage.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Scripts/webpage.sh	2019-09-24 17:39:11.784971221 +0200
++++ pi-hole-4.3.2.cust/advanced/Scripts/webpage.sh	2020-02-18 20:57:58.918844362 +0100
 @@ -16,7 +16,7 @@ readonly dhcpconfig="/etc/dnsmasq.d/02-p
  readonly FTLconf="/etc/pihole/pihole-FTL.conf"
  # 03 -> wildcards
@@ -149,7 +149,7 @@ diff -uprN pi-hole-4.3.2/advanced/Scripts/webpage.sh pi-hole-4.3.2.cust/advanced
  if [[ -f ${coltable} ]]; then
 diff -uprN pi-hole-4.3.2/advanced/Templates/logrotate pi-hole-4.3.2.cust/advanced/Templates/logrotate
 --- pi-hole-4.3.2/advanced/Templates/logrotate	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Templates/logrotate	2019-09-24 17:39:11.795971205 +0200
++++ pi-hole-4.3.2.cust/advanced/Templates/logrotate	2020-02-18 20:57:58.927844359 +0100
 @@ -1,4 +1,4 @@
 -/var/log/pihole.log {
 +/run/log/pihole/pihole.log {
@@ -167,7 +167,7 @@ diff -uprN pi-hole-4.3.2/advanced/Templates/logrotate pi-hole-4.3.2.cust/advance
  	copytruncate
 diff -uprN pi-hole-4.3.2/advanced/Templates/pihole.sudo pi-hole-4.3.2.cust/advanced/Templates/pihole.sudo
 --- pi-hole-4.3.2/advanced/Templates/pihole.sudo	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/Templates/pihole.sudo	2019-09-24 17:39:11.859971111 +0200
++++ pi-hole-4.3.2.cust/advanced/Templates/pihole.sudo	2020-02-18 20:57:58.995844330 +0100
 @@ -7,3 +7,4 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
@@ -175,7 +175,7 @@ diff -uprN pi-hole-4.3.2/advanced/Templates/pihole.sudo pi-hole-4.3.2.cust/advan
 +http ALL=NOPASSWD: /usr/bin/pihole
 diff -uprN pi-hole-4.3.2/advanced/dnsmasq.conf.original pi-hole-4.3.2.cust/advanced/dnsmasq.conf.original
 --- pi-hole-4.3.2/advanced/dnsmasq.conf.original	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/advanced/dnsmasq.conf.original	2019-09-24 17:39:11.859971111 +0200
++++ pi-hole-4.3.2.cust/advanced/dnsmasq.conf.original	2020-02-18 20:57:58.996844330 +0100
 @@ -646,3 +646,4 @@
  
  # Include all files in a directory which end in .conf
@@ -183,7 +183,7 @@ diff -uprN pi-hole-4.3.2/advanced/dnsmasq.conf.original pi-hole-4.3.2.cust/advan
 +conf-dir=/etc/dnsmasq.d/,*.conf
 diff -uprN pi-hole-4.3.2/dns-servers.conf pi-hole-4.3.2.cust/dns-servers.conf
 --- pi-hole-4.3.2/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-4.3.2.cust/dns-servers.conf	2019-09-24 17:39:11.860971110 +0200
++++ pi-hole-4.3.2.cust/dns-servers.conf	2020-02-18 20:57:58.997844330 +0100
 @@ -0,0 +1,9 @@
 +Google (ECS);8.8.8.8;8.8.4.4;2001:4860:4860:0:0:0:0:8888;2001:4860:4860:0:0:0:0:8844
 +OpenDNS (ECS);208.67.222.222;208.67.220.220;2620:119:35::35;2620:119:53::53
@@ -196,7 +196,7 @@ diff -uprN pi-hole-4.3.2/dns-servers.conf pi-hole-4.3.2.cust/dns-servers.conf
 +Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
 diff -uprN pi-hole-4.3.2/gravity.sh pi-hole-4.3.2.cust/gravity.sh
 --- pi-hole-4.3.2/gravity.sh	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/gravity.sh	2019-09-24 17:39:11.779971229 +0200
++++ pi-hole-4.3.2.cust/gravity.sh	2020-02-18 20:57:58.915844363 +0100
 @@ -19,7 +19,7 @@ regexconverter="/opt/pihole/wildcard_reg
  source "${regexconverter}"
  
@@ -208,7 +208,7 @@ diff -uprN pi-hole-4.3.2/gravity.sh pi-hole-4.3.2.cust/gravity.sh
  
 diff -uprN pi-hole-4.3.2/pihole pi-hole-4.3.2.cust/pihole
 --- pi-hole-4.3.2/pihole	2019-09-15 17:52:21.000000000 +0200
-+++ pi-hole-4.3.2.cust/pihole	2019-09-24 17:39:11.786971218 +0200
++++ pi-hole-4.3.2.cust/pihole	2020-02-18 20:57:58.920844361 +0100
 @@ -13,11 +13,10 @@ readonly PI_HOLE_SCRIPT_DIR="/opt/pihole
  readonly gravitylist="/etc/pihole/gravity.list"
  readonly blacklist="/etc/pihole/black.list"
