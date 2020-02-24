@@ -1,6 +1,6 @@
 #!/bin/sh
 
-_pkgver=4.3.2
+_pkgver=4.3.5
 _wwwpkgver=4.3.3
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
