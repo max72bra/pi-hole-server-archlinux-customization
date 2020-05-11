@@ -1,6 +1,6 @@
 diff -uprN AdminLTE-5.0/api.php AdminLTE-5.0.cust/api.php
 --- AdminLTE-5.0/api.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/api.php	2020-05-11 08:15:27.688231919 +0200
++++ AdminLTE-5.0.cust/api.php	2020-05-11 08:56:26.518806289 +0200
 @@ -20,7 +20,7 @@ $data = array();
  // Common API functions
  if (isset($_GET['status']))
@@ -36,7 +36,7 @@ diff -uprN AdminLTE-5.0/api.php AdminLTE-5.0.cust/api.php
  	$data = array_merge($data, array("status" => "disabled"));
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/FTL.php AdminLTE-5.0.cust/scripts/pi-hole/php/FTL.php
 --- AdminLTE-5.0/scripts/pi-hole/php/FTL.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/FTL.php	2020-05-11 08:15:27.664231946 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/FTL.php	2020-05-11 08:56:26.495806373 +0200
 @@ -11,7 +11,7 @@ function connectFTL($address, $port=4711
  	if($address == "127.0.0.1")
  	{
@@ -48,7 +48,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/FTL.php AdminLTE-5.0.cust/scripts/pi
  	}
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/add.php AdminLTE-5.0.cust/scripts/pi-hole/php/add.php
 --- AdminLTE-5.0/scripts/pi-hole/php/add.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/add.php	2020-05-11 08:15:27.697231909 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/add.php	2020-05-11 08:56:26.530806245 +0200
 @@ -86,7 +86,7 @@ switch($list) {
  
  // Reload lists in pihole-FTL after having added something
@@ -60,7 +60,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/add.php AdminLTE-5.0.cust/scripts/pi
  
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/customdns.php AdminLTE-5.0.cust/scripts/pi-hole/php/customdns.php
 --- AdminLTE-5.0/scripts/pi-hole/php/customdns.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/customdns.php	2020-05-11 08:15:27.704231901 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/customdns.php	2020-05-11 08:56:26.538806216 +0200
 @@ -81,7 +81,7 @@
                      if (get_ip_type($entry->ip) == $ipType)
                          return errorJsonResponse("This domain already has a custom DNS entry for an IPv" . $ipType);
@@ -81,7 +81,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/customdns.php AdminLTE-5.0.cust/scri
          }
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/footer.php AdminLTE-5.0.cust/scripts/pi-hole/php/footer.php
 --- AdminLTE-5.0/scripts/pi-hole/php/footer.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/footer.php	2020-05-11 08:15:27.686231921 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/footer.php	2020-05-11 08:56:26.516806296 +0200
 @@ -52,15 +52,15 @@
              <b>Pi-hole Version </b> <?php
              echo $core_current;
@@ -103,7 +103,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/footer.php AdminLTE-5.0.cust/scripts
      </footer>
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/gravity.sh.php AdminLTE-5.0.cust/scripts/pi-hole/php/gravity.sh.php
 --- AdminLTE-5.0/scripts/pi-hole/php/gravity.sh.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/gravity.sh.php	2020-05-11 08:15:27.699231907 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/gravity.sh.php	2020-05-11 08:56:26.532806238 +0200
 @@ -30,7 +30,7 @@ function echoEvent($datatext) {
      echo "data: ".implode("\ndata: ", explode("\n",$datatext))."\n\n";
  }
@@ -115,7 +115,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/gravity.sh.php AdminLTE-5.0.cust/scr
  }
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/groups.php AdminLTE-5.0.cust/scripts/pi-hole/php/groups.php
 --- AdminLTE-5.0/scripts/pi-hole/php/groups.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/groups.php	2020-05-11 08:15:27.696231910 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/groups.php	2020-05-11 08:56:26.527806256 +0200
 @@ -808,5 +808,5 @@ if ($_POST['action'] == 'get_groups') {
  }
  // Reload lists in pihole-FTL after having added something
@@ -125,7 +125,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/groups.php AdminLTE-5.0.cust/scripts
  }
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/header.php AdminLTE-5.0.cust/scripts/pi-hole/php/header.php
 --- AdminLTE-5.0/scripts/pi-hole/php/header.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/header.php	2020-05-11 08:15:27.690231917 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/header.php	2020-05-11 08:56:26.520806282 +0200
 @@ -349,7 +349,7 @@ if($auth) {
                  <div class="pull-left info">
                      <p>Status</p>
@@ -150,7 +150,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/header.php AdminLTE-5.0.cust/scripts
                  <!-- Network -->
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/loginpage.php AdminLTE-5.0.cust/scripts/pi-hole/php/loginpage.php
 --- AdminLTE-5.0/scripts/pi-hole/php/loginpage.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/loginpage.php	2020-05-11 08:15:27.701231905 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/loginpage.php	2020-05-11 08:56:26.535806227 +0200
 @@ -62,7 +62,7 @@
                  After installing Pi-hole for the first time, a password is generated and displayed to the user. The
                  password cannot be retrieved later on, but it is possible to set a new password (or explicitly disable
@@ -162,7 +162,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/loginpage.php AdminLTE-5.0.cust/scri
            </div>
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/queryads.php AdminLTE-5.0.cust/scripts/pi-hole/php/queryads.php
 --- AdminLTE-5.0/scripts/pi-hole/php/queryads.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/queryads.php	2020-05-11 08:15:27.692231915 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/queryads.php	2020-05-11 08:56:26.523806271 +0200
 @@ -61,7 +61,7 @@ else
      $exact = "";
  }
@@ -174,7 +174,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/queryads.php AdminLTE-5.0.cust/scrip
  }
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/savesettings.php AdminLTE-5.0.cust/scripts/pi-hole/php/savesettings.php
 --- AdminLTE-5.0/scripts/pi-hole/php/savesettings.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/savesettings.php	2020-05-11 08:15:27.694231912 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/savesettings.php	2020-05-11 08:56:26.525806263 +0200
 @@ -218,7 +218,7 @@ function addStaticDHCPLease($mac, $ip, $
  			}
  		}
@@ -392,7 +392,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/savesettings.php AdminLTE-5.0.cust/s
  				{
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/tailLog.php AdminLTE-5.0.cust/scripts/pi-hole/php/tailLog.php
 --- AdminLTE-5.0/scripts/pi-hole/php/tailLog.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/tailLog.php	2020-05-11 08:15:27.668231942 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/tailLog.php	2020-05-11 08:56:26.499806358 +0200
 @@ -14,11 +14,11 @@ if(!$auth) die("Not authorized");
  // files as large as the pihole.log
  if(isset($_GET["FTL"]))
@@ -409,7 +409,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/tailLog.php AdminLTE-5.0.cust/script
  if(!$file)
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/teleporter.php AdminLTE-5.0.cust/scripts/pi-hole/php/teleporter.php
 --- AdminLTE-5.0/scripts/pi-hole/php/teleporter.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/teleporter.php	2020-05-11 08:15:27.703231902 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/teleporter.php	2020-05-11 08:56:26.537806220 +0200
 @@ -439,7 +439,7 @@ if(isset($_POST["action"]))
  
  		if($importedsomething)
@@ -421,7 +421,7 @@ diff -uprN AdminLTE-5.0/scripts/pi-hole/php/teleporter.php AdminLTE-5.0.cust/scr
  		unlink($fullfilename);
 diff -uprN AdminLTE-5.0/scripts/pi-hole/php/update_checker.php AdminLTE-5.0.cust/scripts/pi-hole/php/update_checker.php
 --- AdminLTE-5.0/scripts/pi-hole/php/update_checker.php	2020-05-10 20:07:48.000000000 +0200
-+++ AdminLTE-5.0.cust/scripts/pi-hole/php/update_checker.php	2020-05-11 08:15:27.679231929 +0200
++++ AdminLTE-5.0.cust/scripts/pi-hole/php/update_checker.php	2020-05-11 08:56:26.509806322 +0200
 @@ -7,12 +7,12 @@ $GitHubVersions = "/etc/pihole/GitHubVer
  if(!is_readable($localversions) || !is_readable($localbranches) || !is_readable($GitHubVersions))
  {
