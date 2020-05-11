@@ -103,6 +103,10 @@ sed -i '/tricorder/d' "$dircoreb"/pihole
 # setup gravity.sh
 sed -i "s|/usr/local/bin/|/usr/bin/|w $_ssc" "$dircoreb"/gravity.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 1" && exit 1 ; fi
+sed -i "s|source \"/etc/.pihole/advanced/Scripts/database_migration/gravity-db.sh\"|source \"/opt/pihole/database_migration/gravity-db.sh\"|w $_ssc" "$dircoreb"/gravity.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 2" && exit 1 ; fi
+sed -i "s|\"\${piholeGitDir}/advanced/Templates/gravity|/opt/pihole/gravity|w $_ssc" "$dircoreb"/gravity.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 3" && exit 1 ; fi
 
 # setup pihole
 sed -i "s|/usr/local/bin|/usr/bin|w $_ssc" "$dircoreb"/pihole
