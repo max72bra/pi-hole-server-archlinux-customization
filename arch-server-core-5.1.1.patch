@@ -1,26 +1,26 @@
-diff -uprN pi-hole-5.0/adlists.list pi-hole-5.0.cust/adlists.list
---- pi-hole-5.0/adlists.list	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-5.0.cust/adlists.list	2020-05-19 20:24:40.047846982 +0200
+diff -uprN pi-hole-5.1.1/adlists.list pi-hole-5.1.1.cust/adlists.list
+--- pi-hole-5.1.1/adlists.list	1970-01-01 01:00:00.000000000 +0100
++++ pi-hole-5.1.1.cust/adlists.list	2020-07-17 20:58:01.146782129 +0200
 @@ -0,0 +1,4 @@
 +https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 +https://mirror1.malwaredomains.com/files/justdomains
 +https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
 +https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-diff -uprN pi-hole-5.0/advanced/Scripts/chronometer.sh pi-hole-5.0.cust/advanced/Scripts/chronometer.sh
---- pi-hole-5.0/advanced/Scripts/chronometer.sh	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/advanced/Scripts/chronometer.sh	2020-05-19 20:24:39.996850268 +0200
-@@ -13,7 +13,7 @@ LC_NUMERIC=C
+diff -uprN pi-hole-5.1.1/advanced/Scripts/pihole-reenable.sh pi-hole-5.1.1.cust/advanced/Scripts/pihole-reenable.sh
+--- pi-hole-5.1.1/advanced/Scripts/pihole-reenable.sh	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/advanced/Scripts/pihole-reenable.sh	2020-07-17 20:58:01.107782139 +0200
+@@ -17,7 +17,7 @@
+ # This ensures that pihole ends up in the correct state after a sequence of
+ # commands suchs as: `pihole disable 30s; pihole enable; pihole disable`
  
- # Retrieve stats from FTL engine
- pihole-FTL() {
--    ftl_port=$(cat /var/run/pihole-FTL.port 2> /dev/null)
-+    ftl_port=$(cat /run/pihole-ftl/pihole-FTL.port 2> /dev/null)
-     if [[ -n "$ftl_port" ]]; then
-         # Open connection to FTL
-         exec 3<>"/dev/tcp/127.0.0.1/$ftl_port"
-diff -uprN pi-hole-5.0/advanced/Scripts/piholeLogFlush.sh pi-hole-5.0.cust/advanced/Scripts/piholeLogFlush.sh
---- pi-hole-5.0/advanced/Scripts/piholeLogFlush.sh	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/advanced/Scripts/piholeLogFlush.sh	2020-05-19 20:24:39.993850467 +0200
+-readonly PI_HOLE_BIN_DIR="/usr/local/bin"
++readonly PI_HOLE_BIN_DIR="/usr/bin"
+ 
+ sleep "${1}"
+ "${PI_HOLE_BIN_DIR}"/pihole enable
+diff -uprN pi-hole-5.1.1/advanced/Scripts/piholeLogFlush.sh pi-hole-5.1.1.cust/advanced/Scripts/piholeLogFlush.sh
+--- pi-hole-5.1.1/advanced/Scripts/piholeLogFlush.sh	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/advanced/Scripts/piholeLogFlush.sh	2020-07-17 20:58:01.118782136 +0200
 @@ -26,35 +26,35 @@ if [ -z "$DBFILE" ]; then
  fi
  
@@ -78,9 +78,9 @@ diff -uprN pi-hole-5.0/advanced/Scripts/piholeLogFlush.sh pi-hole-5.0.cust/advan
 +    echo -e "${OVER}  ${TICK} Flushed /run/log/pihole/pihole.log"
      echo -e "  ${TICK} Deleted ${deleted} queries from database"
  fi
-diff -uprN pi-hole-5.0/advanced/Scripts/version.sh pi-hole-5.0.cust/advanced/Scripts/version.sh
---- pi-hole-5.0/advanced/Scripts/version.sh	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/advanced/Scripts/version.sh	2020-05-19 20:24:40.017848910 +0200
+diff -uprN pi-hole-5.1.1/advanced/Scripts/version.sh pi-hole-5.1.1.cust/advanced/Scripts/version.sh
+--- pi-hole-5.1.1/advanced/Scripts/version.sh	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/advanced/Scripts/version.sh	2020-07-17 20:58:01.140782131 +0200
 @@ -11,7 +11,7 @@
  # Variables
  DEFAULT="-1"
@@ -106,10 +106,10 @@ diff -uprN pi-hole-5.0/advanced/Scripts/version.sh pi-hole-5.0.cust/advanced/Scr
 -        echo "ERROR"
 -        return 1
 +    if [[ "$1" == "pi-hole" ]]; then
-+        echo "5.0"
++        echo "5.1.1"
      else
 -        echo "Untagged"
-+        echo "5.0"
++        echo "5.1.1"
      fi
      return 0
  }
@@ -137,21 +137,9 @@ diff -uprN pi-hole-5.0/advanced/Scripts/version.sh pi-hole-5.0.cust/advanced/Scr
      return 0
  }
  
-diff -uprN pi-hole-5.0/advanced/Scripts/webpage.sh pi-hole-5.0.cust/advanced/Scripts/webpage.sh
---- pi-hole-5.0/advanced/Scripts/webpage.sh	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/advanced/Scripts/webpage.sh	2020-05-19 20:24:39.978851462 +0200
-@@ -16,7 +16,7 @@ readonly dhcpconfig="/etc/dnsmasq.d/02-p
- readonly FTLconf="/etc/pihole/pihole-FTL.conf"
- # 03 -> wildcards
- readonly dhcpstaticconfig="/etc/dnsmasq.d/04-pihole-static-dhcp.conf"
--readonly PI_HOLE_BIN_DIR="/usr/local/bin"
-+readonly PI_HOLE_BIN_DIR="/usr/bin"
- readonly dnscustomfile="/etc/pihole/custom.list"
- 
- readonly gravityDBfile="/etc/pihole/gravity.db"
-diff -uprN pi-hole-5.0/advanced/Templates/logrotate pi-hole-5.0.cust/advanced/Templates/logrotate
---- pi-hole-5.0/advanced/Templates/logrotate	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/advanced/Templates/logrotate	2020-05-19 20:24:39.990850666 +0200
+diff -uprN pi-hole-5.1.1/advanced/Templates/logrotate pi-hole-5.1.1.cust/advanced/Templates/logrotate
+--- pi-hole-5.1.1/advanced/Templates/logrotate	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/advanced/Templates/logrotate	2020-07-17 20:58:01.116782137 +0200
 @@ -1,4 +1,4 @@
 -/var/log/pihole.log {
 +/run/log/pihole/pihole.log {
@@ -167,25 +155,25 @@ diff -uprN pi-hole-5.0/advanced/Templates/logrotate pi-hole-5.0.cust/advanced/Te
  	# su #
  	weekly
  	copytruncate
-diff -uprN pi-hole-5.0/advanced/Templates/pihole.sudo pi-hole-5.0.cust/advanced/Templates/pihole.sudo
---- pi-hole-5.0/advanced/Templates/pihole.sudo	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/advanced/Templates/pihole.sudo	2020-05-19 20:24:40.047846982 +0200
+diff -uprN pi-hole-5.1.1/advanced/Templates/pihole.sudo pi-hole-5.1.1.cust/advanced/Templates/pihole.sudo
+--- pi-hole-5.1.1/advanced/Templates/pihole.sudo	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/advanced/Templates/pihole.sudo	2020-07-17 20:58:01.146782129 +0200
 @@ -7,3 +7,4 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
  #
 +http ALL=NOPASSWD: /usr/bin/pihole
-diff -uprN pi-hole-5.0/advanced/dnsmasq.conf.original pi-hole-5.0.cust/advanced/dnsmasq.conf.original
---- pi-hole-5.0/advanced/dnsmasq.conf.original	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/advanced/dnsmasq.conf.original	2020-05-19 20:24:40.047846982 +0200
+diff -uprN pi-hole-5.1.1/advanced/dnsmasq.conf.original pi-hole-5.1.1.cust/advanced/dnsmasq.conf.original
+--- pi-hole-5.1.1/advanced/dnsmasq.conf.original	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/advanced/dnsmasq.conf.original	2020-07-17 20:58:01.146782129 +0200
 @@ -646,3 +646,4 @@
  
  # Include all files in a directory which end in .conf
  #conf-dir=/etc/dnsmasq.d/*.conf
 +conf-dir=/etc/dnsmasq.d/,*.conf
-diff -uprN pi-hole-5.0/dns-servers.conf pi-hole-5.0.cust/dns-servers.conf
---- pi-hole-5.0/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-5.0.cust/dns-servers.conf	2020-05-19 20:24:40.048846918 +0200
+diff -uprN pi-hole-5.1.1/dns-servers.conf pi-hole-5.1.1.cust/dns-servers.conf
+--- pi-hole-5.1.1/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
++++ pi-hole-5.1.1.cust/dns-servers.conf	2020-07-17 20:58:01.147782129 +0200
 @@ -0,0 +1,9 @@
 +Google (ECS);8.8.8.8;8.8.4.4;2001:4860:4860:0:0:0:0:8888;2001:4860:4860:0:0:0:0:8844
 +OpenDNS (ECS);208.67.222.222;208.67.220.220;2620:119:35::35;2620:119:53::53
@@ -196,9 +184,9 @@ diff -uprN pi-hole-5.0/dns-servers.conf pi-hole-5.0.cust/dns-servers.conf
 +Quad9 (unfiltered, no DNSSEC);9.9.9.10;149.112.112.10;2620:fe::10;2620:fe::fe:10
 +Quad9 (filtered + ECS);9.9.9.11;149.112.112.11;2620:fe::11;
 +Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
-diff -uprN pi-hole-5.0/gravity.sh pi-hole-5.0.cust/gravity.sh
---- pi-hole-5.0/gravity.sh	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/gravity.sh	2020-05-19 20:24:39.972851860 +0200
+diff -uprN pi-hole-5.1.1/gravity.sh pi-hole-5.1.1.cust/gravity.sh
+--- pi-hole-5.1.1/gravity.sh	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/gravity.sh	2020-07-17 20:58:01.102782140 +0200
 @@ -18,10 +18,10 @@ source "${coltable}"
  regexconverter="/opt/pihole/wildcard_regex_converter.sh"
  source "${regexconverter}"
@@ -223,9 +211,9 @@ diff -uprN pi-hole-5.0/gravity.sh pi-hole-5.0.cust/gravity.sh
  optimize_database=false
  
  domainsExtension="domains"
-diff -uprN pi-hole-5.0/pihole pi-hole-5.0.cust/pihole
---- pi-hole-5.0/pihole	2020-05-10 20:07:53.000000000 +0200
-+++ pi-hole-5.0.cust/pihole	2020-05-19 20:24:39.980851329 +0200
+diff -uprN pi-hole-5.1.1/pihole pi-hole-5.1.1.cust/pihole
+--- pi-hole-5.1.1/pihole	2020-07-16 00:56:47.000000000 +0200
++++ pi-hole-5.1.1.cust/pihole	2020-07-17 20:58:01.109782138 +0200
 @@ -15,7 +15,7 @@ readonly PI_HOLE_SCRIPT_DIR="/opt/pihole
  # they might get set again when the installer is sourced. This causes an
  # error due to modifying a readonly variable.
@@ -274,7 +262,7 @@ diff -uprN pi-hole-5.0/pihole pi-hole-5.0.cust/pihole
      str="Restarting DNS server"
    fi
  
-@@ -221,9 +205,9 @@ Example: 'pihole logging on'
+@@ -222,9 +206,9 @@ Example: 'pihole logging on'
  Specify whether the Pi-hole log should be used
  
  Options:
@@ -287,16 +275,16 @@ diff -uprN pi-hole-5.0/pihole pi-hole-5.0.cust/pihole
      exit 0
    elif [[ "${1}" == "off" ]]; then
      # Disable logging
-@@ -305,7 +289,7 @@ tailFunc() {
-   # Colour blocklist/blacklist/wildcard entries as red
-   # Colour A/AAAA/DHCP strings as white
-   # Colour everything else as gray
+@@ -306,7 +290,7 @@ tailFunc() {
+   # Color blocklist/blacklist/wildcard entries as red
+   # Color A/AAAA/DHCP strings as white
+   # Color everything else as gray
 -  tail -f /var/log/pihole.log | sed -E \
 +  tail -f /run/log/pihole/pihole.log | sed -E \
      -e "s,($(date +'%b %d ')| dnsmasq\[[0-9]*\]),,g" \
      -e "s,(.*(blacklisted |gravity blocked ).* is (0.0.0.0|::|NXDOMAIN|${IPV4_ADDRESS%/*}|${IPV6_ADDRESS:-NULL}).*),${COL_RED}&${COL_NC}," \
      -e "s,.*(query\\[A|DHCP).*,${COL_NC}&${COL_NC}," \
-@@ -313,59 +297,6 @@ tailFunc() {
+@@ -314,59 +298,6 @@ tailFunc() {
    exit 0
  }
  
@@ -304,7 +292,7 @@ diff -uprN pi-hole-5.0/pihole pi-hole-5.0.cust/pihole
 -  if [[ "$2" == "-h" ]] || [[ "$2" == "--help" ]]; then
 -    echo "Usage: pihole checkout [repo] [branch]
 -Example: 'pihole checkout master' or 'pihole checkout core dev'
--Switch Pi-hole subsystems to a different Github branch
+-Switch Pi-hole subsystems to a different GitHub branch
 -
 -Repositories:
 -  core [branch]       Change the branch of Pi-hole's core subsystem
@@ -356,7 +344,7 @@ diff -uprN pi-hole-5.0/pihole pi-hole-5.0.cust/pihole
  
  updateCheckFunc() {
    "${PI_HOLE_SCRIPT_DIR}"/updatecheck.sh "$@"
-@@ -390,7 +321,6 @@ Debugging Options:
+@@ -391,7 +322,6 @@ Debugging Options:
    -d, debug           Start a debugging session
                          Add '-a' to enable automated debugging
    -f, flush           Flush the Pi-hole log
@@ -364,7 +352,7 @@ diff -uprN pi-hole-5.0/pihole pi-hole-5.0.cust/pihole
    -t, tail            View the live output of the Pi-hole log
  
  Options:
-@@ -404,11 +334,9 @@ Options:
+@@ -405,11 +335,9 @@ Options:
                          Add '-h' for more info on logging usage
    -q, query           Query the adlists for a specified domain
                          Add '-h' for more info on query usage
@@ -376,16 +364,16 @@ diff -uprN pi-hole-5.0/pihole pi-hole-5.0.cust/pihole
    status              Display the running status of Pi-hole subsystems
    enable              Enable Pi-hole subsystems
    disable             Disable Pi-hole subsystems
-@@ -416,8 +344,6 @@ Options:
+@@ -417,8 +345,6 @@ Options:
    restartdns          Full restart Pi-hole subsystems
                          Add 'reload' to update the lists and flush the cache without restarting the DNS server
                          Add 'reload-lists' to only update the lists WITHOUT flushing the cache or restarting the DNS server
--  checkout            Switch Pi-hole subsystems to a different Github branch
+-  checkout            Switch Pi-hole subsystems to a different GitHub branch
 -                        Add '-h' for more info on checkout usage
    arpflush            Flush information stored in Pi-hole's network tables";
    exit 0
  }
-@@ -451,23 +377,18 @@ case "${1}" in
+@@ -452,23 +378,18 @@ case "${1}" in
    "--white-wild" | "white-wild"   ) listFunc "$@";;
    "-d" | "debug"                ) debugFunc "$@";;
    "-f" | "flush"                ) flushFunc "$@";;

@@ -1,0 +1,106 @@
+diff -uprN AdminLTE-5.1/scripts/pi-hole/php/footer.php AdminLTE-5.1.cust/scripts/pi-hole/php/footer.php
+--- AdminLTE-5.1/scripts/pi-hole/php/footer.php	2020-07-15 23:35:11.000000000 +0200
++++ AdminLTE-5.1.cust/scripts/pi-hole/php/footer.php	2020-07-17 20:58:01.145782130 +0200
+@@ -55,9 +55,9 @@
+     $webUrl = $githubBaseUrl . "/AdminLTE";
+     $ftlUrl = $githubBaseUrl . "/FTL";
+ 
+-    $coreReleasesUrl = $coreUrl . "/releases";
+-    $webReleasesUrl = $webUrl . "/releases";
+-    $ftlReleasesUrl = $ftlUrl . "/releases";
++    $coreReleasesUrl = "https://aur.archlinux.org/packages/pi-hole-server";
++    $webReleasesUrl = "https://aur.archlinux.org/packages/pi-hole-server";
++    $ftlReleasesUrl = "https://aur.archlinux.org/packages/pi-hole-server";
+ ?>
+     <footer class="main-footer">
+         <div class="row row-centered text-center">
+diff -uprN AdminLTE-5.1/scripts/pi-hole/php/header.php AdminLTE-5.1.cust/scripts/pi-hole/php/header.php
+--- AdminLTE-5.1/scripts/pi-hole/php/header.php	2020-07-15 23:35:11.000000000 +0200
++++ AdminLTE-5.1.cust/scripts/pi-hole/php/header.php	2020-07-17 20:58:01.122782135 +0200
+@@ -581,12 +581,6 @@ if($auth) {
+                             <i class="fa fa-list-ul"></i> Tail pihole-FTL.log
+                         </a>
+                     </li>
+-                    <!-- Generate debug log -->
+-                    <li<?php if($scriptname === "debug.php"){ ?> class="active"<?php } ?>>
+-                        <a href="debug.php">
+-                            <i class="fa fa-ambulance"></i> Generate debug log
+-                        </a>
+-                    </li>
+                     <!-- Network -->
+                     <li<?php if($scriptname === "network.php"){ ?> class="active"<?php } ?>>
+                         <a href="network.php">
+diff -uprN AdminLTE-5.1/scripts/pi-hole/php/tailLog.php AdminLTE-5.1.cust/scripts/pi-hole/php/tailLog.php
+--- AdminLTE-5.1/scripts/pi-hole/php/tailLog.php	2020-07-15 23:35:11.000000000 +0200
++++ AdminLTE-5.1.cust/scripts/pi-hole/php/tailLog.php	2020-07-17 20:58:01.126782134 +0200
+@@ -14,11 +14,11 @@ if(!$auth) die("Not authorized");
+ // files as large as the pihole.log
+ if(isset($_GET["FTL"]))
+ {
+-	$file = fopen("/var/log/pihole-FTL.log","r");
++	$file = fopen("/run/log/pihole-ftl/pihole-FTL.log","r");
+ }
+ else
+ {
+-	$file = fopen("/var/log/pihole.log","r");
++	$file = fopen("/run/log/pihole/pihole.log","r");
+ }
+ 
+ if(!$file)
+diff -uprN AdminLTE-5.1/scripts/pi-hole/php/update_checker.php AdminLTE-5.1.cust/scripts/pi-hole/php/update_checker.php
+--- AdminLTE-5.1/scripts/pi-hole/php/update_checker.php	2020-07-15 23:35:11.000000000 +0200
++++ AdminLTE-5.1.cust/scripts/pi-hole/php/update_checker.php	2020-07-17 20:58:01.138782131 +0200
+@@ -7,12 +7,12 @@ $GitHubVersions = "/etc/pihole/GitHubVer
+ if(!is_readable($localversions) || !is_readable($localbranches) || !is_readable($GitHubVersions))
+ {
+ 	$core_branch = "master";
+-	$core_current = "N/A";
++	$core_current = "5.1.1";
+ 	$core_update = false;
+ 	$web_branch = "master";
+-	$web_current = "N/A";
++	$web_current = "5.1";
+ 	$web_update = false;
+-	$FTL_current = "N/A";
++	$FTL_current = exec("pihole-FTL version");
+ 	$FTL_update = false;
+ }
+ else
+@@ -25,31 +25,31 @@ else
+ 	// Check if on a dev branch
+ 	$core_branch = $branches[0];
+ 	if($core_branch !== "master") {
+-	    $core_current = "vDev";
++	    $core_current = "5.1.1";
+ 	    $core_commit = $versions[0];
+ 	}
+ 	else {
+-	    $core_current = explode("-",$versions[0])[0];
++	    $core_current = "5.1.1";
+ 	}
+ 
+ 	/********** Get Pi-hole web branch / version / commit **********/
+ 	$web_branch = $branches[1];
+ 	if($web_branch !== "master") {
+-	    $web_current = "vDev";
++	    $web_current = "5.1";
+ 	    $web_commit = $versions[1];
+ 	}
+ 	else {
+-	    $web_current = explode("-",$versions[1])[0];
++	    $web_current = "5.1";
+ 	}
+ 
+ 	/********** Get Pi-hole FTL (not a git repository) **********/
+ 	$FTL_branch = $branches[2];
+ 	if(substr($versions[2], 0, 4) === "vDev") {
+-	    $FTL_current = "vDev";
++	    $FTL_current = exec("pihole-FTL version");
+ 	    $FTL_commit = $versions[2];
+ 	}
+ 	else {
+-	    $FTL_current = $versions[2];
++	    $FTL_current = exec("pihole-FTL version");
+ 	}
+ 
+ 	// Get data from GitHub
