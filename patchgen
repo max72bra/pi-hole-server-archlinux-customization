@@ -116,7 +116,7 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup pihole 1" &
 
 # setting up and securing pihole-reenable.sh script
 sed -i "s|/usr/local/bin|/usr/bin|w $_ssc" "$dircoreb"/advanced/Scripts/pihole-reenable.sh
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up and securing webpage.sh script 1" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up and securing pihole-reenable.sh script 1" && exit 1 ; fi
 
 # -----------------
 
@@ -144,8 +144,8 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bi
 # -----------------
 
 # change FTL port file location to chronometer.sh
-#sed -i "s|/var/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$dircoreb"/advanced/Scripts/chronometer.sh
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change FTL port file location to chronometer.sh" && exit 1 ; fi
+sed -i "s|\${PI_HOLE_FILES_DIR}/automated install/basic-install.sh|/opt/pihole/basic-install.sh|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change FTL port file location to chronometer.sh" && exit 1 ; fi
 
 # -----------------
 
@@ -157,56 +157,25 @@ sed -i '/\-\- Generate debug log \-\-/,+5d' "$diradminb"/scripts/pi-hole/php/hea
 # -----------------
 
 # change log location in admin php interface
-#sed -i "s|/var/log/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/data.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 1" && exit 1 ; fi
-
-#sed -i "s|/var/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$diradminb"/scripts/pi-hole/php/FTL.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 2" && exit 1 ; fi
 sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/tailLog.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 3" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 1" && exit 1 ; fi
 sed -i "s|/var/log/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/tailLog.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 4" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 2" && exit 1 ; fi
 
 # -----------------
 
-# since we don't directly install from git...
-#  sed -n "/\$core_branch =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-#  if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 1" && exit 1 ; fi
-#  sed -i 's/\$core_branch =.*$/\$core_branch = "master";/' "$diradminb"/scripts/pi-hole/php/update_checker.php
-#  sed -n "/\$web_branch =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-#  if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 2" && exit 1 ; fi
-#  sed -i 's/\$web_branch =.*$/\$web_branch = "master";/' "$diradminb"/scripts/pi-hole/php/update_checker.php
-
 sed -n "/\$core_current =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 3" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 1" && exit 1 ; fi
 sed -i 's/\$core_current =.*$/\$core_current = "'"$_pkgver"'";/' "$diradminb"/scripts/pi-hole/php/update_checker.php
 sed -n "/\$web_current =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 4" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 2" && exit 1 ; fi
 sed -i 's/\$web_current =.*$/\$web_current = "'"$_wwwpkgver"'";/' "$diradminb"/scripts/pi-hole/php/update_checker.php
 sed -n "/\$FTL_current =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 5" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 3" && exit 1 ; fi
 sed -i 's/\$FTL_current =.*$/\$FTL_current = exec("pihole-FTL version");/' "$diradminb"/scripts/pi-hole/php/update_checker.php
 
-#  sed -n "/\$core_commit =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-#  if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 6" && exit 1 ; fi
-#  sed -i 's/\$core_commit =.*$/\$core_commit = NULL;/' "$diradminb"/scripts/pi-hole/php/update_checker.php
-#  sed -n "/\$web_commit =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-#  if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 7" && exit 1 ; fi
-#  sed -i 's/\$web_commit =.*$/\$web_commit = NULL;/' "$diradminb"/scripts/pi-hole/php/update_checker.php
-
 sed -i "s|/var/www/html/admin/|/srv/http/pihole/admin/|w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 8" && exit 1 ; fi
-
-#cd "$srcdir"/"$_pkgname"-"$_pkgver"
-#patch -p1 -i "$srcdir"/version.patch
-#cd "$srcdir"
-
-#sed -n "/{{corever}}/w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 9" && exit 1 ; fi
-#sed -i "s/{{corever}}/$_pkgver/" "$dircoreb"/advanced/Scripts/version.sh
-#sed -n "/{{webver}}/w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 10" && exit 1 ; fi
-#sed -i "s/{{webver}}/$_wwwpkgver/" "$dircoreb"/advanced/Scripts/version.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 4" && exit 1 ; fi
 
 # -----------------
 
@@ -219,42 +188,24 @@ sed -i "s|\$ftlUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 3" && exit 1 ; fi
 
 sed -i "s|\$coreReleasesUrl . \"/\" . \$core_current;|\$coreReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 4" && exit 1 ; fi
 sed -i "s|\$webReleasesUrl . \"/\" . \$web_current;|\$webReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 5" && exit 1 ; fi
 sed -i "s|\$ftlReleasesUrl . \"/\" . \$FTL_current;|\$ftlReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 6" && exit 1 ; fi
 
 sed -i "s|\$coreReleasesUrl . \"/latest\";|\$coreReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 7" && exit 1 ; fi
 sed -i "s|\$webReleasesUrl . \"/latest\";|\$webReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 8" && exit 1 ; fi
 sed -i "s|\$ftlReleasesUrl . \"/latest\";|\$ftlReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 9" && exit 1 ; fi
 
 # -----------------
 
 # sudo pihole full path (php-fpm compatibility)
 sed -i "s|\"sudo pihole \"|\"sudo /usr/bin/pihole \"|w $_ssc" "$diradminb"/scripts/pi-hole/php/func.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 1" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/header.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 2" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/queryads.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 3" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/savesettings.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 4" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/groups.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 5" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/add.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 6" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/gravity.sh.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 7" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/loginpage.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 8" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/teleporter.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 9" && exit 1 ; fi
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/customdns.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 10" && exit 1 ; fi
 
 # -----------------
 
