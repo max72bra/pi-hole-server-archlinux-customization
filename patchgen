@@ -215,14 +215,28 @@ sed -i "s|\$coreUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/package
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
 sed -i "s|\$webUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-server\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 2" && exit 1 ; fi
-sed -i "s|\$ftlUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-server\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+sed -i "s|\$ftlUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-ftl\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 3" && exit 1 ; fi
+
+sed -i "s|\$coreReleasesUrl . \"/\" . \$core_current;|\$coreReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+sed -i "s|\$webReleasesUrl . \"/\" . \$web_current;|\$webReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+sed -i "s|\$ftlReleasesUrl . \"/\" . \$FTL_current;|\$ftlReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+
+sed -i "s|\$coreReleasesUrl . \"/latest\";|\$coreReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+sed -i "s|\$webReleasesUrl . \"/latest\";|\$webReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+sed -i "s|\$ftlReleasesUrl . \"/latest\";|\$ftlReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
 
 # -----------------
 
 # sudo pihole full path (php-fpm compatibility)
-#sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/api.php
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 1" && exit 1 ; fi
+sed -i "s|\"sudo pihole \"|\"sudo /usr/bin/pihole \"|w $_ssc" "$diradminb"/scripts/pi-hole/php/func.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 1" && exit 1 ; fi
 #sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/header.php
 #if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 2" && exit 1 ; fi
 #sed -i "s|sudo pihole|sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/queryads.php
