@@ -1,7 +1,7 @@
 #!/bin/sh
 
-_pkgver=5.1.1
-_wwwpkgver=5.1
+_pkgver=5.1.2
+_wwwpkgver=5.1.1
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$_pkgver"
@@ -38,7 +38,7 @@ rm version-${_pkgver}.patch
 # ================
 
 # the return of service management
-sed -i "s|service \${resolver} restart|systemctl restart \${resolver}|w $_ssc" "$dircoreb"/pihole
+sed -i "s|service pihole-FTL restart|systemctl restart pihole-FTL|w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: the return of service management" && exit 1 ; fi
 
 # setting up and securing pihole wrapper script
