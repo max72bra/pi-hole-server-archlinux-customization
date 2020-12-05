@@ -29,6 +29,8 @@ cp -a $diradmina $diradminb
 cp -a version.patch version-${_pkgver}.patch
 sed -i "s|{{_pkgver}}|v${_pkgver}|w $_ssc" ./version-${_pkgver}.patch
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: version.sh patch 1" && exit 1 ; fi
+sed -i "s|{{_wwwpkgver}}|v${_wwwpkgver}|w $_ssc" ./version-${_pkgver}.patch
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: version.sh patch 2" && exit 1 ; fi
 cd "$dircoreb"
 patch -p1 -i ../version-${_pkgver}.patch
 cd ..
