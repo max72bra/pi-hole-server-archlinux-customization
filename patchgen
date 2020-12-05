@@ -27,7 +27,7 @@ cp -a $diradmina $diradminb
 # version.sh patch
 # ================
 cp -a version.patch version-${_pkgver}.patch
-sed -i "s|{{_pkgver}}|${_pkgver}|w $_ssc" ./version-${_pkgver}.patch
+sed -i "s|{{_pkgver}}|v${_pkgver}|w $_ssc" ./version-${_pkgver}.patch
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: version.sh patch 1" && exit 1 ; fi
 cd "$dircoreb"
 patch -p1 -i ../version-${_pkgver}.patch
@@ -178,8 +178,8 @@ sed -n "/\$FTL_current =.*$/w $_ssc" "$diradminb"/scripts/pi-hole/php/update_che
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 3" && exit 1 ; fi
 sed -i 's/\$FTL_current =.*$/\$FTL_current = exec("pihole-FTL version");/' "$diradminb"/scripts/pi-hole/php/update_checker.php
 
-sed -i "s|/var/www/html/admin/|/srv/http/pihole/admin/|w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 4" && exit 1 ; fi
+#sed -i "s|/var/www/html/admin/|/srv/http/pihole/admin/|w $_ssc" "$dircoreb"/advanced/Scripts/version.sh
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: since we don't directly install from git... 4" && exit 1 ; fi
 
 # -----------------
 
