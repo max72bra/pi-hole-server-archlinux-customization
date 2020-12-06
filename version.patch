@@ -1,6 +1,15 @@
---- pi-hole-4.0.a/advanced/Scripts/version.sh	2018-08-05 19:40:22.000000000 +0200
-+++ pi-hole-4.0/advanced/Scripts/version.sh	2018-08-24 15:28:44.141363877 +0200
-@@ -20,42 +20,16 @@
+--- pi-hole/advanced/Scripts/version.sh	2020-12-02 22:37:42.000000000 +0100
++++ pi-hole.a/advanced/Scripts/version.sh	2020-12-06 00:52:13.678272286 +0100
+@@ -9,7 +9,7 @@
+ # Please see LICENSE file for your rights under this license.
+ 
+ # Variables
+-DEFAULT="-1"
++DEFAULT=""
+ COREGITDIR="/etc/.pihole/"
+ WEBGITDIR="/var/www/html/admin/"
+ 
+@@ -20,19 +20,10 @@
          return 0
      fi
  
@@ -19,31 +28,7 @@
 +        echo "{{_pkgver}}"
      else
 -        echo "Untagged"
-+        echo "{{_pkgver}}"
++        echo "{{_wwwpkgver}}"
      fi
      return 0
  }
- 
- getLocalHash() {
--    # Local FTL hash does not exist on filesystem
--    if [[ "$1" == "FTL" ]]; then
--        echo "N/A"
--        return 0
--    fi
--
--    # Get the short hash of the local repository
--    local directory="${1}"
--    local hash
--
--    cd "${directory}" 2> /dev/null || { echo "${DEFAULT}"; return 1; }
--    hash=$(git rev-parse --short HEAD || echo "$DEFAULT")
--    if [[ "${hash}" == "${DEFAULT}" ]]; then
--        echo "ERROR"
--        return 1
--    else
--        echo "${hash}"
--    fi
-+    echo "N/A"
-     return 0
- }
- 
