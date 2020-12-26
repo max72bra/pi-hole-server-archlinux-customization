@@ -149,9 +149,11 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bi
 
 # -----------------
 
-# change FTL port file location to chronometer.sh
+# chronometer and co. setup
 sed -i "s|\${PI_HOLE_FILES_DIR}/automated install/basic-install.sh|/opt/pihole/basic-install.sh|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change FTL port file location to chronometer.sh" && exit 1 ; fi
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 1" && exit 1 ; fi
+sed -i "s|/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$dircoreb"/advanced/Scripts/chronometer.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 2" && exit 1 ; fi
 
 # -----------------
 
