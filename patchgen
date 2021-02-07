@@ -214,6 +214,12 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer 
 # sudo pihole full path (php-fpm compatibility)
 sed -i "s|\"sudo pihole \"|\"sudo /usr/bin/pihole \"|w $_ssc" "$diradminb"/scripts/pi-hole/php/func.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 1" && exit 1 ; fi
+sed -i "s|\"sudo pihole|\"sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/queryads.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 2" && exit 1 ; fi
+sed -i "s|'sudo pihole|'sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/savesettings.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 3" && exit 1 ; fi
+sed -i "s|\"sudo pihole|\"sudo /usr/bin/pihole|w $_ssc" "$diradminb"/scripts/pi-hole/php/gravity.sh.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: sudo pihole full path (php-fpm compatibility) 4" && exit 1 ; fi
 
 # -----------------
 
