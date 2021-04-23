@@ -117,6 +117,8 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 
 # setup pihole
 sed -i "s|/usr/local/bin|/usr/bin|w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup pihole 1" && exit 1 ; fi
+sed -i "s|/run/pihole-FTL.pid|/run/pihole-ftl/pihole-FTL.pid|w $_ssc" "$dircoreb"/pihole
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup pihole 2" && exit 1 ; fi
 
 # -----------------
 
