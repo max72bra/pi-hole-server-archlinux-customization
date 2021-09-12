@@ -66,7 +66,7 @@ sed -i '/piholeCheckoutFunc() {/,+22d' "$dircoreb"/pihole
 
 sed -n "/tricorderFunc() {/w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up and securing pihole wrapper script 6" && exit 1 ; fi
-sed -i '/tricorderFunc() {/,+29d' "$dircoreb"/pihole
+sed -i '/tricorderFunc() {/,+20d' "$dircoreb"/pihole
 
 sed -n "/\"\-[r,up]/w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up and securing pihole wrapper script 7" && exit 1 ; fi
