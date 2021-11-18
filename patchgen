@@ -148,6 +148,8 @@ sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 2" && exit 1 ; fi
 sed -i "s|/usr/sbin|/usr/bin|w $_ssc" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 3" && exit 1 ; fi
+sed -i "s|/var/lib/logrotate/pihole|/var/lib/logrotate_pihole.status|w $_ssc" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 3" && exit 1 ; fi
 
 # -----------------
 
