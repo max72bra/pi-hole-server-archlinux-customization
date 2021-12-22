@@ -9,7 +9,7 @@
  COREGITDIR="/etc/.pihole/"
  WEBGITDIR="/var/www/html/admin/"
  
-@@ -20,19 +20,10 @@
+@@ -24,19 +24,10 @@
          return 0
      fi
  
