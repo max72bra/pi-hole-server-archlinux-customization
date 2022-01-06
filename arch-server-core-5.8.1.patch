@@ -1,14 +1,14 @@
-diff -uprN pi-hole-5.7/adlists.list pi-hole-5.7.cust/adlists.list
---- pi-hole-5.7/adlists.list	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-5.7.cust/adlists.list	2022-01-06 12:20:20.076781213 +0100
+diff -uprN pi-hole-5.8.1/adlists.list pi-hole-5.8.1.cust/adlists.list
+--- pi-hole-5.8.1/adlists.list	1970-01-01 01:00:00.000000000 +0100
++++ pi-hole-5.8.1.cust/adlists.list	2022-01-06 12:21:07.560789363 +0100
 @@ -0,0 +1,4 @@
 +https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 +https://mirror1.malwaredomains.com/files/justdomains
 +https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
 +https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-diff -uprN pi-hole-5.7/advanced/Scripts/chronometer.sh pi-hole-5.7.cust/advanced/Scripts/chronometer.sh
---- pi-hole-5.7/advanced/Scripts/chronometer.sh	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Scripts/chronometer.sh	2022-01-06 12:20:19.948781220 +0100
+diff -uprN pi-hole-5.8.1/advanced/Scripts/chronometer.sh pi-hole-5.8.1.cust/advanced/Scripts/chronometer.sh
+--- pi-hole-5.8.1/advanced/Scripts/chronometer.sh	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Scripts/chronometer.sh	2022-01-06 12:21:07.431789313 +0100
 @@ -14,7 +14,7 @@ LC_NUMERIC=C
  # Retrieve stats from FTL engine
  pihole-FTL() {
@@ -18,9 +18,9 @@ diff -uprN pi-hole-5.7/advanced/Scripts/chronometer.sh pi-hole-5.7.cust/advanced
      if [[ -n "$ftl_port" ]]; then
          # Open connection to FTL
          exec 3<>"/dev/tcp/127.0.0.1/$ftl_port"
-diff -uprN pi-hole-5.7/advanced/Scripts/database_migration/gravity-db.sh pi-hole-5.7.cust/advanced/Scripts/database_migration/gravity-db.sh
---- pi-hole-5.7/advanced/Scripts/database_migration/gravity-db.sh	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Scripts/database_migration/gravity-db.sh	2022-01-06 12:20:19.879781224 +0100
+diff -uprN pi-hole-5.8.1/advanced/Scripts/database_migration/gravity-db.sh pi-hole-5.8.1.cust/advanced/Scripts/database_migration/gravity-db.sh
+--- pi-hole-5.8.1/advanced/Scripts/database_migration/gravity-db.sh	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Scripts/database_migration/gravity-db.sh	2022-01-06 12:21:07.330789273 +0100
 @@ -10,7 +10,7 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
@@ -30,9 +30,9 @@ diff -uprN pi-hole-5.7/advanced/Scripts/database_migration/gravity-db.sh pi-hole
  
  upgrade_gravityDB(){
  	local database piholeDir auditFile version
-diff -uprN pi-hole-5.7/advanced/Scripts/pihole-reenable.sh pi-hole-5.7.cust/advanced/Scripts/pihole-reenable.sh
---- pi-hole-5.7/advanced/Scripts/pihole-reenable.sh	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Scripts/pihole-reenable.sh	2022-01-06 12:20:19.897781223 +0100
+diff -uprN pi-hole-5.8.1/advanced/Scripts/pihole-reenable.sh pi-hole-5.8.1.cust/advanced/Scripts/pihole-reenable.sh
+--- pi-hole-5.8.1/advanced/Scripts/pihole-reenable.sh	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Scripts/pihole-reenable.sh	2022-01-06 12:21:07.348789280 +0100
 @@ -17,7 +17,7 @@
  # This ensures that pihole ends up in the correct state after a sequence of
  # commands suchs as: `pihole disable 30s; pihole enable; pihole disable`
@@ -42,9 +42,9 @@ diff -uprN pi-hole-5.7/advanced/Scripts/pihole-reenable.sh pi-hole-5.7.cust/adva
  
  sleep "${1}"
  "${PI_HOLE_BIN_DIR}"/pihole enable
-diff -uprN pi-hole-5.7/advanced/Scripts/piholeLogFlush.sh pi-hole-5.7.cust/advanced/Scripts/piholeLogFlush.sh
---- pi-hole-5.7/advanced/Scripts/piholeLogFlush.sh	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Scripts/piholeLogFlush.sh	2022-01-06 12:20:19.936781221 +0100
+diff -uprN pi-hole-5.8.1/advanced/Scripts/piholeLogFlush.sh pi-hole-5.8.1.cust/advanced/Scripts/piholeLogFlush.sh
+--- pi-hole-5.8.1/advanced/Scripts/piholeLogFlush.sh	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Scripts/piholeLogFlush.sh	2022-01-06 12:21:07.418789308 +0100
 @@ -14,7 +14,7 @@ source ${colfile}
  # In case we're running at the same time as a system logrotate, use a
  # separate logrotate state file to prevent stepping on each other's
@@ -111,9 +111,9 @@ diff -uprN pi-hole-5.7/advanced/Scripts/piholeLogFlush.sh pi-hole-5.7.cust/advan
 +    echo -e "${OVER}  ${TICK} Flushed /run/log/pihole/pihole.log"
      echo -e "  ${TICK} Deleted ${deleted} queries from database"
  fi
-diff -uprN pi-hole-5.7/advanced/Scripts/version.sh pi-hole-5.7.cust/advanced/Scripts/version.sh
---- pi-hole-5.7/advanced/Scripts/version.sh	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Scripts/version.sh	2022-01-06 12:20:19.731781234 +0100
+diff -uprN pi-hole-5.8.1/advanced/Scripts/version.sh pi-hole-5.8.1.cust/advanced/Scripts/version.sh
+--- pi-hole-5.8.1/advanced/Scripts/version.sh	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Scripts/version.sh	2022-01-06 12:21:07.180789214 +0100
 @@ -9,7 +9,7 @@
  # Please see LICENSE file for your rights under this license.
  
@@ -139,16 +139,16 @@ diff -uprN pi-hole-5.7/advanced/Scripts/version.sh pi-hole-5.7.cust/advanced/Scr
 -        echo "ERROR"
 -        return 1
 +    if [[ "$1" == "pi-hole" ]]; then
-+        echo "v5.7"
++        echo "v5.8.1"
      else
 -        echo "Untagged"
-+        echo "v5.9"
++        echo "v5.10.1"
      fi
      return 0
  }
-diff -uprN pi-hole-5.7/advanced/Scripts/webpage.sh pi-hole-5.7.cust/advanced/Scripts/webpage.sh
---- pi-hole-5.7/advanced/Scripts/webpage.sh	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Scripts/webpage.sh	2022-01-06 12:20:19.942781220 +0100
+diff -uprN pi-hole-5.8.1/advanced/Scripts/webpage.sh pi-hole-5.8.1.cust/advanced/Scripts/webpage.sh
+--- pi-hole-5.8.1/advanced/Scripts/webpage.sh	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Scripts/webpage.sh	2022-01-06 12:21:07.425789310 +0100
 @@ -24,7 +24,7 @@ readonly gravityDBfile="/etc/pihole/grav
  readonly PI_HOLE_FILES_DIR="/etc/.pihole"
  # shellcheck disable=SC2034  # used in basic-install
@@ -158,9 +158,9 @@ diff -uprN pi-hole-5.7/advanced/Scripts/webpage.sh pi-hole-5.7.cust/advanced/Scr
  
  coltable="/opt/pihole/COL_TABLE"
  if [[ -f ${coltable} ]]; then
-diff -uprN pi-hole-5.7/advanced/Templates/logrotate pi-hole-5.7.cust/advanced/Templates/logrotate
---- pi-hole-5.7/advanced/Templates/logrotate	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Templates/logrotate	2022-01-06 12:20:19.924781222 +0100
+diff -uprN pi-hole-5.8.1/advanced/Templates/logrotate pi-hole-5.8.1.cust/advanced/Templates/logrotate
+--- pi-hole-5.8.1/advanced/Templates/logrotate	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Templates/logrotate	2022-01-06 12:21:07.407789303 +0100
 @@ -1,4 +1,4 @@
 -/var/log/pihole.log {
 +/run/log/pihole/pihole.log {
@@ -176,25 +176,25 @@ diff -uprN pi-hole-5.7/advanced/Templates/logrotate pi-hole-5.7.cust/advanced/Te
  	# su #
  	weekly
  	copytruncate
-diff -uprN pi-hole-5.7/advanced/Templates/pihole.sudo pi-hole-5.7.cust/advanced/Templates/pihole.sudo
---- pi-hole-5.7/advanced/Templates/pihole.sudo	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/Templates/pihole.sudo	2022-01-06 12:20:20.075781213 +0100
+diff -uprN pi-hole-5.8.1/advanced/Templates/pihole.sudo pi-hole-5.8.1.cust/advanced/Templates/pihole.sudo
+--- pi-hole-5.8.1/advanced/Templates/pihole.sudo	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/Templates/pihole.sudo	2022-01-06 12:21:07.559789363 +0100
 @@ -7,3 +7,4 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
  #
 +http ALL=NOPASSWD: /usr/bin/pihole
-diff -uprN pi-hole-5.7/advanced/dnsmasq.conf.original pi-hole-5.7.cust/advanced/dnsmasq.conf.original
---- pi-hole-5.7/advanced/dnsmasq.conf.original	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/advanced/dnsmasq.conf.original	2022-01-06 12:20:20.075781213 +0100
+diff -uprN pi-hole-5.8.1/advanced/dnsmasq.conf.original pi-hole-5.8.1.cust/advanced/dnsmasq.conf.original
+--- pi-hole-5.8.1/advanced/dnsmasq.conf.original	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/advanced/dnsmasq.conf.original	2022-01-06 12:21:07.559789363 +0100
 @@ -646,3 +646,4 @@
  
  # Include all files in a directory which end in .conf
  #conf-dir=/etc/dnsmasq.d/*.conf
 +conf-dir=/etc/dnsmasq.d/,*.conf
-diff -uprN pi-hole-5.7/dns-servers.conf pi-hole-5.7.cust/dns-servers.conf
---- pi-hole-5.7/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-5.7.cust/dns-servers.conf	2022-01-06 12:20:20.077781213 +0100
+diff -uprN pi-hole-5.8.1/dns-servers.conf pi-hole-5.8.1.cust/dns-servers.conf
+--- pi-hole-5.8.1/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
++++ pi-hole-5.8.1.cust/dns-servers.conf	2022-01-06 12:21:07.561789364 +0100
 @@ -0,0 +1,9 @@
 +Google (ECS);8.8.8.8;8.8.4.4;2001:4860:4860:0:0:0:0:8888;2001:4860:4860:0:0:0:0:8844
 +OpenDNS (ECS, DNSSEC);208.67.222.222;208.67.220.220;2620:119:35::35;2620:119:53::53
@@ -205,9 +205,9 @@ diff -uprN pi-hole-5.7/dns-servers.conf pi-hole-5.7.cust/dns-servers.conf
 +Quad9 (unfiltered, no DNSSEC);9.9.9.10;149.112.112.10;2620:fe::10;2620:fe::fe:10
 +Quad9 (filtered + ECS);9.9.9.11;149.112.112.11;2620:fe::11;2620:fe::fe:11
 +Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
-diff -uprN pi-hole-5.7/gravity.sh pi-hole-5.7.cust/gravity.sh
---- pi-hole-5.7/gravity.sh	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/gravity.sh	2022-01-06 12:20:19.873781225 +0100
+diff -uprN pi-hole-5.8.1/gravity.sh pi-hole-5.8.1.cust/gravity.sh
+--- pi-hole-5.8.1/gravity.sh	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/gravity.sh	2022-01-06 12:21:07.324789271 +0100
 @@ -16,10 +16,10 @@ export LC_ALL=C
  coltable="/opt/pihole/COL_TABLE"
  source "${coltable}"
@@ -232,9 +232,9 @@ diff -uprN pi-hole-5.7/gravity.sh pi-hole-5.7.cust/gravity.sh
  
  domainsExtension="domains"
  
-diff -uprN pi-hole-5.7/pihole pi-hole-5.7.cust/pihole
---- pi-hole-5.7/pihole	2021-12-22 21:24:59.000000000 +0100
-+++ pi-hole-5.7.cust/pihole	2022-01-06 12:20:19.903781223 +0100
+diff -uprN pi-hole-5.8.1/pihole pi-hole-5.8.1.cust/pihole
+--- pi-hole-5.8.1/pihole	2022-01-06 00:00:01.000000000 +0100
++++ pi-hole-5.8.1.cust/pihole	2022-01-06 12:21:07.354789283 +0100
 @@ -15,8 +15,8 @@ readonly PI_HOLE_SCRIPT_DIR="/opt/pihole
  # they might get set again when the installer is sourced. This causes an
  # error due to modifying a readonly variable.
@@ -298,7 +298,7 @@ diff -uprN pi-hole-5.7/pihole pi-hole-5.7.cust/pihole
      exit 0
    elif [[ "${1}" == "off" ]]; then
      # Disable logging
-@@ -365,7 +349,7 @@ tailFunc() {
+@@ -380,7 +364,7 @@ tailFunc() {
    # Color blocklist/blacklist/wildcard entries as red
    # Color A/AAAA/DHCP strings as white
    # Color everything else as gray
@@ -307,7 +307,7 @@ diff -uprN pi-hole-5.7/pihole pi-hole-5.7.cust/pihole
      -e "s,($(date +'%b %d ')| dnsmasq\[[0-9]*\]),,g" \
      -e "s,(.*(blacklisted |gravity blocked ).*),${COL_RED}&${COL_NC}," \
      -e "s,.*(query\\[A|DHCP).*,${COL_NC}&${COL_NC}," \
-@@ -373,50 +357,6 @@ tailFunc() {
+@@ -388,50 +372,6 @@ tailFunc() {
    exit 0
  }
  
@@ -358,7 +358,7 @@ diff -uprN pi-hole-5.7/pihole pi-hole-5.7.cust/pihole
  updateCheckFunc() {
    "${PI_HOLE_SCRIPT_DIR}"/updatecheck.sh "$@"
    exit 0
-@@ -438,9 +378,7 @@ Whitelist/Blacklist Options:
+@@ -453,9 +393,7 @@ Whitelist/Blacklist Options:
  
  Debugging Options:
    -d, debug           Start a debugging session
@@ -368,7 +368,7 @@ diff -uprN pi-hole-5.7/pihole pi-hole-5.7.cust/pihole
    -t, tail [arg]      View the live output of the Pi-hole log.
                        Add an optional argument to filter the log
                        (regular expressions are supported)
-@@ -457,11 +395,9 @@ Options:
+@@ -472,11 +410,9 @@ Options:
                          Add '-h' for more info on logging usage
    -q, query           Query the adlists for a specified domain
                          Add '-h' for more info on query usage
@@ -380,7 +380,7 @@ diff -uprN pi-hole-5.7/pihole pi-hole-5.7.cust/pihole
    status              Display the running status of Pi-hole subsystems
    enable              Enable Pi-hole subsystems
    disable             Disable Pi-hole subsystems
-@@ -469,8 +405,6 @@ Options:
+@@ -484,8 +420,6 @@ Options:
    restartdns          Full restart Pi-hole subsystems
                          Add 'reload' to update the lists and flush the cache without restarting the DNS server
                          Add 'reload-lists' to only update the lists WITHOUT flushing the cache or restarting the DNS server
@@ -389,7 +389,7 @@ diff -uprN pi-hole-5.7/pihole pi-hole-5.7.cust/pihole
    arpflush            Flush information stored in Pi-hole's network tables";
    exit 0
  }
-@@ -504,23 +438,18 @@ case "${1}" in
+@@ -519,23 +453,18 @@ case "${1}" in
    "--white-wild" | "white-wild"   ) listFunc "$@";;
    "-d" | "debug"                ) debugFunc "$@";;
    "-f" | "flush"                ) flushFunc "$@";;
