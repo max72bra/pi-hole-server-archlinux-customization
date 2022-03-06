@@ -1,6 +1,6 @@
 diff -uprN pi-hole-5.9/adlists.list pi-hole-5.9.cust/adlists.list
 --- pi-hole-5.9/adlists.list	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-5.9.cust/adlists.list	2022-02-13 11:09:34.098081929 +0100
++++ pi-hole-5.9.cust/adlists.list	2022-03-06 11:34:47.257290424 +0100
 @@ -0,0 +1,4 @@
 +https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 +https://mirror1.malwaredomains.com/files/justdomains
@@ -8,7 +8,7 @@ diff -uprN pi-hole-5.9/adlists.list pi-hole-5.9.cust/adlists.list
 +https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
 diff -uprN pi-hole-5.9/advanced/Scripts/chronometer.sh pi-hole-5.9.cust/advanced/Scripts/chronometer.sh
 --- pi-hole-5.9/advanced/Scripts/chronometer.sh	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Scripts/chronometer.sh	2022-02-13 11:09:34.037081687 +0100
++++ pi-hole-5.9.cust/advanced/Scripts/chronometer.sh	2022-03-06 11:34:47.196290201 +0100
 @@ -14,7 +14,7 @@ LC_NUMERIC=C
  # Retrieve stats from FTL engine
  pihole-FTL() {
@@ -20,7 +20,7 @@ diff -uprN pi-hole-5.9/advanced/Scripts/chronometer.sh pi-hole-5.9.cust/advanced
          exec 3<>"/dev/tcp/127.0.0.1/$ftl_port"
 diff -uprN pi-hole-5.9/advanced/Scripts/database_migration/gravity-db.sh pi-hole-5.9.cust/advanced/Scripts/database_migration/gravity-db.sh
 --- pi-hole-5.9/advanced/Scripts/database_migration/gravity-db.sh	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Scripts/database_migration/gravity-db.sh	2022-02-13 11:09:34.007081567 +0100
++++ pi-hole-5.9.cust/advanced/Scripts/database_migration/gravity-db.sh	2022-03-06 11:34:47.166290091 +0100
 @@ -10,7 +10,7 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
@@ -32,7 +32,7 @@ diff -uprN pi-hole-5.9/advanced/Scripts/database_migration/gravity-db.sh pi-hole
  	local database piholeDir auditFile version
 diff -uprN pi-hole-5.9/advanced/Scripts/pihole-reenable.sh pi-hole-5.9.cust/advanced/Scripts/pihole-reenable.sh
 --- pi-hole-5.9/advanced/Scripts/pihole-reenable.sh	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Scripts/pihole-reenable.sh	2022-02-13 11:09:34.016081603 +0100
++++ pi-hole-5.9.cust/advanced/Scripts/pihole-reenable.sh	2022-03-06 11:34:47.174290121 +0100
 @@ -17,7 +17,7 @@
  # This ensures that pihole ends up in the correct state after a sequence of
  # commands suchs as: `pihole disable 30s; pihole enable; pihole disable`
@@ -44,7 +44,7 @@ diff -uprN pi-hole-5.9/advanced/Scripts/pihole-reenable.sh pi-hole-5.9.cust/adva
  "${PI_HOLE_BIN_DIR}"/pihole enable
 diff -uprN pi-hole-5.9/advanced/Scripts/piholeLogFlush.sh pi-hole-5.9.cust/advanced/Scripts/piholeLogFlush.sh
 --- pi-hole-5.9/advanced/Scripts/piholeLogFlush.sh	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Scripts/piholeLogFlush.sh	2022-02-13 11:09:34.033081670 +0100
++++ pi-hole-5.9.cust/advanced/Scripts/piholeLogFlush.sh	2022-03-06 11:34:47.191290183 +0100
 @@ -14,7 +14,7 @@ source ${colfile}
  # In case we're running at the same time as a system logrotate, use a
  # separate logrotate state file to prevent stepping on each other's
@@ -113,7 +113,7 @@ diff -uprN pi-hole-5.9/advanced/Scripts/piholeLogFlush.sh pi-hole-5.9.cust/advan
  fi
 diff -uprN pi-hole-5.9/advanced/Scripts/version.sh pi-hole-5.9.cust/advanced/Scripts/version.sh
 --- pi-hole-5.9/advanced/Scripts/version.sh	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Scripts/version.sh	2022-02-13 11:09:33.941081304 +0100
++++ pi-hole-5.9.cust/advanced/Scripts/version.sh	2022-03-06 11:34:47.092289821 +0100
 @@ -9,7 +9,7 @@
  # Please see LICENSE file for your rights under this license.
  
@@ -148,7 +148,7 @@ diff -uprN pi-hole-5.9/advanced/Scripts/version.sh pi-hole-5.9.cust/advanced/Scr
  }
 diff -uprN pi-hole-5.9/advanced/Scripts/webpage.sh pi-hole-5.9.cust/advanced/Scripts/webpage.sh
 --- pi-hole-5.9/advanced/Scripts/webpage.sh	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Scripts/webpage.sh	2022-02-13 11:09:34.036081682 +0100
++++ pi-hole-5.9.cust/advanced/Scripts/webpage.sh	2022-03-06 11:34:47.194290194 +0100
 @@ -24,7 +24,7 @@ readonly gravityDBfile="/etc/pihole/grav
  readonly PI_HOLE_FILES_DIR="/etc/.pihole"
  # shellcheck disable=SC2034  # used in basic-install
@@ -160,7 +160,7 @@ diff -uprN pi-hole-5.9/advanced/Scripts/webpage.sh pi-hole-5.9.cust/advanced/Scr
  if [[ -f ${coltable} ]]; then
 diff -uprN pi-hole-5.9/advanced/Templates/logrotate pi-hole-5.9.cust/advanced/Templates/logrotate
 --- pi-hole-5.9/advanced/Templates/logrotate	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Templates/logrotate	2022-02-13 11:09:34.029081655 +0100
++++ pi-hole-5.9.cust/advanced/Templates/logrotate	2022-03-06 11:34:47.186290165 +0100
 @@ -1,4 +1,4 @@
 -/var/log/pihole.log {
 +/run/log/pihole/pihole.log {
@@ -178,15 +178,15 @@ diff -uprN pi-hole-5.9/advanced/Templates/logrotate pi-hole-5.9.cust/advanced/Te
  	copytruncate
 diff -uprN pi-hole-5.9/advanced/Templates/pihole.sudo pi-hole-5.9.cust/advanced/Templates/pihole.sudo
 --- pi-hole-5.9/advanced/Templates/pihole.sudo	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/Templates/pihole.sudo	2022-02-13 11:09:34.098081929 +0100
++++ pi-hole-5.9.cust/advanced/Templates/pihole.sudo	2022-03-06 11:34:47.256290421 +0100
 @@ -7,3 +7,4 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
  #
-+http ALL=NOPASSWD: /usr/bin/pihole
++http ALL=(ALL:ALL) NOPASSWD: /usr/bin/pihole
 diff -uprN pi-hole-5.9/advanced/dnsmasq.conf.original pi-hole-5.9.cust/advanced/dnsmasq.conf.original
 --- pi-hole-5.9/advanced/dnsmasq.conf.original	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/advanced/dnsmasq.conf.original	2022-02-13 11:09:34.098081929 +0100
++++ pi-hole-5.9.cust/advanced/dnsmasq.conf.original	2022-03-06 11:34:47.257290424 +0100
 @@ -646,3 +646,4 @@
  
  # Include all files in a directory which end in .conf
@@ -194,7 +194,7 @@ diff -uprN pi-hole-5.9/advanced/dnsmasq.conf.original pi-hole-5.9.cust/advanced/
 +conf-dir=/etc/dnsmasq.d/,*.conf
 diff -uprN pi-hole-5.9/dns-servers.conf pi-hole-5.9.cust/dns-servers.conf
 --- pi-hole-5.9/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
-+++ pi-hole-5.9.cust/dns-servers.conf	2022-02-13 11:09:34.099081933 +0100
++++ pi-hole-5.9.cust/dns-servers.conf	2022-03-06 11:34:47.258290428 +0100
 @@ -0,0 +1,9 @@
 +Google (ECS);8.8.8.8;8.8.4.4;2001:4860:4860:0:0:0:0:8888;2001:4860:4860:0:0:0:0:8844
 +OpenDNS (ECS, DNSSEC);208.67.222.222;208.67.220.220;2620:119:35::35;2620:119:53::53
@@ -207,7 +207,7 @@ diff -uprN pi-hole-5.9/dns-servers.conf pi-hole-5.9.cust/dns-servers.conf
 +Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
 diff -uprN pi-hole-5.9/gravity.sh pi-hole-5.9.cust/gravity.sh
 --- pi-hole-5.9/gravity.sh	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/gravity.sh	2022-02-13 11:09:34.005081559 +0100
++++ pi-hole-5.9.cust/gravity.sh	2022-03-06 11:34:47.158290062 +0100
 @@ -16,10 +16,10 @@ export LC_ALL=C
  coltable="/opt/pihole/COL_TABLE"
  source "${coltable}"
@@ -234,7 +234,7 @@ diff -uprN pi-hole-5.9/gravity.sh pi-hole-5.9.cust/gravity.sh
  
 diff -uprN pi-hole-5.9/pihole pi-hole-5.9.cust/pihole
 --- pi-hole-5.9/pihole	2022-02-12 21:04:20.000000000 +0100
-+++ pi-hole-5.9.cust/pihole	2022-02-13 11:09:34.019081615 +0100
++++ pi-hole-5.9.cust/pihole	2022-03-06 11:34:47.176290128 +0100
 @@ -15,8 +15,8 @@ readonly PI_HOLE_SCRIPT_DIR="/opt/pihole
  # they might get set again when the installer is sourced. This causes an
  # error due to modifying a readonly variable.
