@@ -1,6 +1,6 @@
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/footer.php AdminLTE-5.12.cust/scripts/pi-hole/php/footer.php
 --- AdminLTE-5.12/scripts/pi-hole/php/footer.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/footer.php	2022-07-05 15:42:03.211612962 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/footer.php	2022-07-05 16:07:34.320393435 +0200
 @@ -57,10 +57,10 @@
      $ftlUrl = $githubBaseUrl . "/FTL";
      $webUrl = $githubBaseUrl . "/AdminLTE";
@@ -42,7 +42,7 @@ diff -uprN AdminLTE-5.12/scripts/pi-hole/php/footer.php AdminLTE-5.12.cust/scrip
                  <?php if($core_update || $web_update || $FTL_update) { ?>
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/func.php AdminLTE-5.12.cust/scripts/pi-hole/php/func.php
 --- AdminLTE-5.12/scripts/pi-hole/php/func.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/func.php	2022-07-05 15:42:03.217612527 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/func.php	2022-07-05 16:07:34.325393266 +0200
 @@ -143,7 +143,7 @@ function pihole_execute($argument_string
      $escaped = escapeshellcmd($argument_string);
      $output = null;
@@ -54,7 +54,7 @@ diff -uprN AdminLTE-5.12/scripts/pi-hole/php/func.php AdminLTE-5.12.cust/scripts
      {
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/gravity.sh.php AdminLTE-5.12.cust/scripts/pi-hole/php/gravity.sh.php
 --- AdminLTE-5.12/scripts/pi-hole/php/gravity.sh.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/gravity.sh.php	2022-07-05 15:42:03.234611296 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/gravity.sh.php	2022-07-05 16:07:34.342392695 +0200
 @@ -30,7 +30,7 @@ function echoEvent($datatext) {
      echo "data: ".implode("\ndata: ", explode("\n",$datatext))."\n\n";
  }
@@ -66,7 +66,7 @@ diff -uprN AdminLTE-5.12/scripts/pi-hole/php/gravity.sh.php AdminLTE-5.12.cust/s
  }
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/header.php AdminLTE-5.12.cust/scripts/pi-hole/php/header.php
 --- AdminLTE-5.12/scripts/pi-hole/php/header.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/header.php	2022-07-05 15:42:03.117619773 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/header.php	2022-07-05 16:07:34.228396528 +0200
 @@ -598,12 +598,6 @@ if($auth) {
                              Tail pihole-FTL.log
                          </a>
@@ -82,7 +82,7 @@ diff -uprN AdminLTE-5.12/scripts/pi-hole/php/header.php AdminLTE-5.12.cust/scrip
                          <a href="network.php">
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/queryads.php AdminLTE-5.12.cust/scripts/pi-hole/php/queryads.php
 --- AdminLTE-5.12/scripts/pi-hole/php/queryads.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/queryads.php	2022-07-05 15:42:03.222612165 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/queryads.php	2022-07-05 16:07:34.331393065 +0200
 @@ -52,7 +52,7 @@ else
      $exact = "";
  }
@@ -94,7 +94,7 @@ diff -uprN AdminLTE-5.12/scripts/pi-hole/php/queryads.php AdminLTE-5.12.cust/scr
  }
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/savesettings.php AdminLTE-5.12.cust/scripts/pi-hole/php/savesettings.php
 --- AdminLTE-5.12/scripts/pi-hole/php/savesettings.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/savesettings.php	2022-07-05 15:42:03.228611730 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/savesettings.php	2022-07-05 16:07:34.337392863 +0200
 @@ -505,7 +505,7 @@ function addStaticDHCPLease($mac, $ip, $
  				{
  					global $available_themes;
@@ -106,7 +106,7 @@ diff -uprN AdminLTE-5.12/scripts/pi-hole/php/savesettings.php AdminLTE-5.12.cust
  				break;
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/tailLog.php AdminLTE-5.12.cust/scripts/pi-hole/php/tailLog.php
 --- AdminLTE-5.12/scripts/pi-hole/php/tailLog.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/tailLog.php	2022-07-05 15:42:03.134618541 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/tailLog.php	2022-07-05 16:07:34.243396024 +0200
 @@ -14,11 +14,11 @@ if(!$auth) die("Not authorized");
  // files as large as the pihole.log
  if(isset($_GET["FTL"]))
@@ -123,7 +123,7 @@ diff -uprN AdminLTE-5.12/scripts/pi-hole/php/tailLog.php AdminLTE-5.12.cust/scri
  if(!$file)
 diff -uprN AdminLTE-5.12/scripts/pi-hole/php/update_checker.php AdminLTE-5.12.cust/scripts/pi-hole/php/update_checker.php
 --- AdminLTE-5.12/scripts/pi-hole/php/update_checker.php	2022-04-20 20:41:15.000000000 +0200
-+++ AdminLTE-5.12.cust/scripts/pi-hole/php/update_checker.php	2022-07-05 15:42:03.162616512 +0200
++++ AdminLTE-5.12.cust/scripts/pi-hole/php/update_checker.php	2022-07-05 16:07:34.272395048 +0200
 @@ -7,12 +7,12 @@ $GitHubVersions = "/etc/pihole/GitHubVer
  if(!is_readable($localversions) || !is_readable($localbranches) || !is_readable($GitHubVersions))
  {

@@ -169,7 +169,7 @@ sed -i '/\-\- Generate debug log \-\-/,+5d' "$diradminb"/scripts/pi-hole/php/hea
 # -----------------
 
 # teleport.php hardcoded path
-sed -i "s|/var/www/html/admin/|/srv/http/pihole/|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
+sed -i "s|/var/www/html/admin/|/srv/http/pihole/admin/|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: teleport.php hardcoded path 1" && exit 1 ; fi
 
 # -----------------
