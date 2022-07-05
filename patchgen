@@ -168,6 +168,12 @@ sed -i '/\-\- Generate debug log \-\-/,+5d' "$diradminb"/scripts/pi-hole/php/hea
 
 # -----------------
 
+# teleport.php hardcoded path
+sed -i "s|/var/www/html/admin/|/srv/http/pihole/|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: teleport.php hardcoded path 1" && exit 1 ; fi
+
+# -----------------
+
 # change log location in admin php interface
 sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/tailLog.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 1" && exit 1 ; fi
