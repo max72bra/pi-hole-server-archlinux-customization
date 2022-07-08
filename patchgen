@@ -1,7 +1,7 @@
 #!/bin/sh
 
-_pkgver=5.10
-_wwwpkgver=5.12
+_pkgver=5.11.3
+_wwwpkgver=5.13
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$_pkgver"
@@ -129,22 +129,22 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setting up and se
 # -----------------
 
 # change log location to pihole script
-sed -i "s|/var/log/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$dircoreb"/pihole
+sed -i "s|/var/log/pihole/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location to pihole script" && exit 1 ; fi
 
 # -----------------
 
 # change log location to piholeLogFlush.sh
-sed -n "/\/var\/log\/pihole.log/w $_ssc" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
+sed -n "/\/var\/log\/pihole\/pihole.log/w $_ssc" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location to piholeLogFlush.sh" && exit 1 ; fi
-sed -i "s|/var/log/pihole.log|/run/log/pihole/pihole.log|g" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
+sed -i "s|/var/log/pihole/pihole.log|/run/log/pihole/pihole.log|g" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
 
 # -----------------
 
 # change log and bin location to logrotate
-sed -i "s|/var/log/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$dircoreb"/advanced/Templates/logrotate
+sed -i "s|/var/log/pihole/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$dircoreb"/advanced/Templates/logrotate
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 1" && exit 1 ; fi
-sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dircoreb"/advanced/Templates/logrotate
+sed -i "s|/var/log/pihole/FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$dircoreb"/advanced/Templates/logrotate
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 2" && exit 1 ; fi
 sed -i "s|/usr/sbin|/usr/bin|w $_ssc" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 3" && exit 1 ; fi
@@ -169,15 +169,15 @@ sed -i '/\-\- Generate debug log \-\-/,+5d' "$diradminb"/scripts/pi-hole/php/hea
 # -----------------
 
 # teleport.php hardcoded path
-sed -i "s|/var/www/html/admin/|/srv/http/pihole/admin/|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: teleport.php hardcoded path 1" && exit 1 ; fi
+#sed -i "s|/var/www/html/admin/|/srv/http/pihole/admin/|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: teleport.php hardcoded path 1" && exit 1 ; fi
 
 # -----------------
 
 # change log location in admin php interface
-sed -i "s|/var/log/pihole-FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/tailLog.php
+sed -i "s|/var/log/pihole/FTL.log|/run/log/pihole-ftl/pihole-FTL.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/tailLog.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 1" && exit 1 ; fi
-sed -i "s|/var/log/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/tailLog.php
+sed -i "s|/var/log/pihole/pihole.log|/run/log/pihole/pihole.log|w $_ssc" "$diradminb"/scripts/pi-hole/php/tailLog.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log location in admin php interface 2" && exit 1 ; fi
 
 # -----------------
