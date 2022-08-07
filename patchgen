@@ -102,6 +102,13 @@ sed -i '/tricorder/d' "$dircoreb"/pihole
 
 # -----------------
 
+# https://github.com/pi-hole/AdminLTE/pull/2267/commits/af05eb4b898fc3ca1771cc2b0a8943fc69c5b335
+sed -n "/row\[\"client_id\"\];/w $_ssc" "$diradminb"/api_db.php
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: github commit" && exit 1 ; fi
+sed -i '/row\[\"client_id\"\];/d' "$diradminb"/api_db.php
+
+# -----------------
+
 # setup gravity.sh
 sed -i "s|/usr/local/bin/|/usr/bin/|w $_ssc" "$dircoreb"/gravity.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 1" && exit 1 ; fi
