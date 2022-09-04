@@ -1,7 +1,7 @@
 #!/bin/sh
 
-_pkgver=5.11.4
-_wwwpkgver=5.13
+_pkgver=5.12
+_wwwpkgver=5.14.2
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$_pkgver"
@@ -102,13 +102,6 @@ sed -i '/tricorder/d' "$dircoreb"/pihole
 
 # -----------------
 
-# https://github.com/pi-hole/AdminLTE/pull/2267/commits/af05eb4b898fc3ca1771cc2b0a8943fc69c5b335
-sed -n "/row\[\"client_id\"\];/w $_ssc" "$diradminb"/api_db.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: github commit" && exit 1 ; fi
-sed -i '/row\[\"client_id\"\];/d' "$diradminb"/api_db.php
-
-# -----------------
-
 # setup gravity.sh
 sed -i "s|/usr/local/bin/|/usr/bin/|w $_ssc" "$dircoreb"/gravity.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 1" && exit 1 ; fi
@@ -121,10 +114,10 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 
 sed -i "s|/etc/.pihole/advanced/Scripts/database_migration/gravity|/opt/pihole/database_migration/gravity|w $_ssc" "$dircoreb"/advanced/Scripts/database_migration/gravity-db.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup gravity.sh 1" && exit 1 ; fi
 
-# setup pihole
+# setup pihole and utils.sh
 sed -i "s|/usr/local/bin|/usr/bin|w $_ssc" "$dircoreb"/pihole
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup pihole 1" && exit 1 ; fi
-sed -i "s|/run/pihole-FTL.pid|/run/pihole-ftl/pihole-FTL.pid|w $_ssc" "$dircoreb"/pihole
+sed -i "s|/run/pihole-FTL.pid|/run/pihole-ftl/pihole-FTL.pid|w $_ssc" "$dircoreb"/advanced/Scripts/utils.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: setup pihole 2" && exit 1 ; fi
 
 # -----------------
@@ -169,9 +162,9 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and c
 # -----------------
 
 # no debug for us, right now
-sed -n "/\-\- Generate debug log \-\-/w $_ssc" "$diradminb"/scripts/pi-hole/php/header.php
+sed -n "/\-\- Generate debug log \-\-/w $_ssc" "$diradminb"/scripts/pi-hole/php/sidebar.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: no debug for us, right now 1" && exit 1 ; fi
-sed -i '/\-\- Generate debug log \-\-/,+5d' "$diradminb"/scripts/pi-hole/php/header.php
+sed -i '/\-\- Generate debug log \-\-/,+5d' "$diradminb"/scripts/pi-hole/php/sidebar.php
 
 # -----------------
 
@@ -205,11 +198,11 @@ sed -i 's/\$FTL_current =.*$/\$FTL_current = exec("pihole-FTL version");/' "$dir
 # -----------------
 
 # web admin footer update setup
-sed -i "s|\$coreUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-server\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+sed -i "s|\$coreUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-server\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
-sed -i "s|\$webUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-server\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+sed -i "s|\$webUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-server\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 2" && exit 1 ; fi
-sed -i "s|\$ftlUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-ftl\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
+sed -i "s|\$ftlUrl\ \.\ \"\/releases\"\;|\"https:\/\/aur.archlinux.org\/packages\/pi-hole-ftl\";|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 3" && exit 1 ; fi
 
 sed -i "s|\$coreReleasesUrl . \"/\" . \$core_current;|\$coreReleasesUrl;|w $_ssc" "$diradminb"/scripts/pi-hole/php/footer.php
