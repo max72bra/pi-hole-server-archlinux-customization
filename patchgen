@@ -205,13 +205,13 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer 
 sed -i "s|\$ftlUrl =.*$|\$ftlUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-ftl';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 3" && exit 1 ; fi
 
-sed -i "s|\$core_current =.*$|\$core_current = '';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$coreUrl\.'/'\.\$core_current|\$coreUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 4" && exit 1 ; fi
-sed -i "s|\$web_current =.*$|\$web_current = '';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$webUrl\.'/'\.\$web_current|\$webUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 5" && exit 1 ; fi
-sed -i "s|\$FTL_current =.*$|\$FTL_current = '';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$ftlUrl\.'/'\.\$FTL_current|\$ftlUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 6" && exit 1 ; fi
-sed -i "s|\$docker_current = .*$|\$docker_current = '';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$dockerUrl\.'/'\.\$docker_current|\$dockerUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 7" && exit 1 ; fi
 
 # -----------------
