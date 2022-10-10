@@ -1,7 +1,7 @@
 #!/bin/sh
 
-_pkgver=5.12.2
-_wwwpkgver=5.15.1
+_pkgver=5.13
+_wwwpkgver=5.16
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$_pkgver"
@@ -156,8 +156,8 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bi
 # chronometer and co. setup
 sed -i "s|\${PI_HOLE_FILES_DIR}/automated install/basic-install.sh|/opt/pihole/basic-install.sh|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 1" && exit 1 ; fi
-sed -i "s|/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$dircoreb"/advanced/Scripts/chronometer.sh
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 2" && exit 1 ; fi
+#sed -i "s|/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$dircoreb"/advanced/Scripts/chronometer.sh
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 2" && exit 1 ; fi
 
 # -----------------
 
@@ -169,8 +169,8 @@ sed -i '/\-\- Generate debug log \-\-/,+5d' "$diradminb"/scripts/pi-hole/php/sid
 # -----------------
 
 # FTL.php run location
-sed -i "s|/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$diradminb"/scripts/pi-hole/php/FTL.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: FTL.php run location 1" && exit 1 ; fi
+#sed -i "s|/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$diradminb"/scripts/pi-hole/php/FTL.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: FTL.php run location 1" && exit 1 ; fi
 
 # -----------------
 
@@ -205,13 +205,13 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer 
 sed -i "s|\$ftlUrl =.*$|\$ftlUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-ftl';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 3" && exit 1 ; fi
 
-sed -i "s|\$coreUrl\.'/'\.\$core_current|\$coreUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$coreUrl\.'/'\.rawurlencode(\$core_current)|\$coreUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 4" && exit 1 ; fi
-sed -i "s|\$webUrl\.'/'\.\$web_current|\$webUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$webUrl\.'/'\.rawurlencode(\$web_current)|\$webUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 5" && exit 1 ; fi
-sed -i "s|\$ftlUrl\.'/'\.\$FTL_current|\$ftlUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$ftlUrl\.'/'\.rawurlencode(\$FTL_current)|\$ftlUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 6" && exit 1 ; fi
-sed -i "s|\$dockerUrl\.'/'\.\$docker_current|\$dockerUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+sed -i "s|\$dockerUrl\.'/'\.rawurlencode(\$docker_current)|\$dockerUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 7" && exit 1 ; fi
 
 # -----------------
