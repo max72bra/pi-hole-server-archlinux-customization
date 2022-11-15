@@ -198,21 +198,21 @@ sed -i 's/\$FTL_current =.*$/\$FTL_current = exec("pihole-FTL version");/' "$dir
 # -----------------
 
 # web admin footer update setup
-sed -i "s|\$coreUrl =.*$|\$coreUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-server';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
-sed -i "s|\$webUrl =.*$|\$webUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-server';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 2" && exit 1 ; fi
-sed -i "s|\$ftlUrl =.*$|\$ftlUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-ftl';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 3" && exit 1 ; fi
+#sed -i "s|\$coreUrl =.*$|\$coreUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-server';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 1" && exit 1 ; fi
+#sed -i "s|\$webUrl =.*$|\$webUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-server';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 2" && exit 1 ; fi
+#sed -i "s|\$ftlUrl =.*$|\$ftlUrl = 'https:\/\/aur.archlinux.org\/packages\/pi-hole-ftl';|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 3" && exit 1 ; fi
 
-sed -i "s|\$coreUrl\.'/'\.rawurlencode(\$core_current)|\$coreUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 4" && exit 1 ; fi
-sed -i "s|\$webUrl\.'/'\.rawurlencode(\$web_current)|\$webUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 5" && exit 1 ; fi
-sed -i "s|\$ftlUrl\.'/'\.rawurlencode(\$FTL_current)|\$ftlUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 6" && exit 1 ; fi
-sed -i "s|\$dockerUrl\.'/'\.rawurlencode(\$docker_current)|\$dockerUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 7" && exit 1 ; fi
+#sed -i "s|\$coreUrl\.'/'\.rawurlencode(\$core_current)|\$coreUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 4" && exit 1 ; fi
+#sed -i "s|\$webUrl\.'/'\.rawurlencode(\$web_current)|\$webUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 5" && exit 1 ; fi
+#sed -i "s|\$ftlUrl\.'/'\.rawurlencode(\$FTL_current)|\$ftlUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 6" && exit 1 ; fi
+#sed -i "s|\$dockerUrl\.'/'\.rawurlencode(\$docker_current)|\$dockerUrl|w $_ssc" "$diradminb"/scripts/pi-hole/php/update_checker.php
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: web admin footer update setup 7" && exit 1 ; fi
 
 # -----------------
 
