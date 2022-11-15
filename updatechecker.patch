@@ -1,0 +1,32 @@
+diff -Naur pi-hole/advanced/Scripts/updatecheck.sh pi-hole.a/advanced/Scripts/updatecheck.sh
+--- pi-hole/advanced/Scripts/updatecheck.sh	2022-11-14 23:21:16.000000000 +0100
++++ pi-hole.a/advanced/Scripts/updatecheck.sh	2022-11-15 09:05:18.671731814 +0100
+@@ -8,21 +8,20 @@
+ # This file is copyright under the latest version of the EUPL.
+ # Please see LICENSE file for your rights under this license.
+ 
++declare -A arch_versions
++arch_versions["/etc/.pihole"]="{{_pkgver}}"
++arch_versions["/var/www/html/admin"]="{{_wwwpkgver}}"
++
+ function get_local_branch() {
+-    # Return active branch
+-    cd "${1}" 2> /dev/null || return 1
+-    git rev-parse --abbrev-ref HEAD || return 1
++    echo "master" || return 1
+ }
+ 
+ function get_local_version() {
+-    # Return active version
+-    cd "${1}" 2> /dev/null || return 1
+-    git describe --tags --always 2> /dev/null || return 1
++    echo "${arch_versions["${1}"]}" || return 1
+ }
+ 
+ function get_local_hash() {
+-    cd "${1}" 2> /dev/null || return 1
+-    git rev-parse --short HEAD || return 1
++    echo "builtfromreleasetarball" || return 1
+ }
+ 
+ function get_remote_version() {
