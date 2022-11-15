@@ -26,15 +26,15 @@ cp -a $diradmina $diradminb
 # ================
 # version.sh patch
 # ================
-#cp -a version.patch version-${_pkgver}.patch
-#sed -i "s|{{_pkgver}}|v${_pkgver}|w $_ssc" ./version-${_pkgver}.patch
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: version.sh patch 1" && exit 1 ; fi
-#sed -i "s|{{_wwwpkgver}}|v${_wwwpkgver}|w $_ssc" ./version-${_pkgver}.patch
-#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: version.sh patch 2" && exit 1 ; fi
-#cd "$dircoreb"
-#patch -p1 -i ../version-${_pkgver}.patch
-#cd ..
-#rm version-${_pkgver}.patch
+cp -a updatechecker.patch updatechecker-${_pkgver}.patch
+sed -i "s|{{_pkgver}}|v${_pkgver}|w $_ssc" ./updatechecker-${_pkgver}.patch
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: updatechecker.sh patch 1" && exit 1 ; fi
+sed -i "s|{{_wwwpkgver}}|v${_wwwpkgver}|w $_ssc" ./updatechecker-${_pkgver}.patch
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: updatechecker.sh patch 2" && exit 1 ; fi
+cd "$dircoreb"
+patch -p1 -i ../updatechecker-${_pkgver}.patch
+cd ..
+rm updatechecker-${_pkgver}.patch
 # ================
 # version.sh patch
 # ================
