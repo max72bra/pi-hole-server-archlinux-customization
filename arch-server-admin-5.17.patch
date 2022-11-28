@@ -1,6 +1,6 @@
 diff -uprN AdminLTE-5.17/scripts/pi-hole/php/func.php AdminLTE-5.17.cust/scripts/pi-hole/php/func.php
 --- AdminLTE-5.17/scripts/pi-hole/php/func.php	2022-11-14 20:00:36.000000000 +0100
-+++ AdminLTE-5.17.cust/scripts/pi-hole/php/func.php	2022-11-15 09:57:08.759844545 +0100
++++ AdminLTE-5.17.cust/scripts/pi-hole/php/func.php	2022-11-28 07:59:48.157860347 +0100
 @@ -152,7 +152,7 @@ function pihole_execute($argument_string
      $escaped = escapeshellcmd($argument_string);
      $output = null;
@@ -12,7 +12,7 @@ diff -uprN AdminLTE-5.17/scripts/pi-hole/php/func.php AdminLTE-5.17.cust/scripts
          trigger_error("Executing {$command} failed.", E_USER_WARNING);
 diff -uprN AdminLTE-5.17/scripts/pi-hole/php/gravity.sh.php AdminLTE-5.17.cust/scripts/pi-hole/php/gravity.sh.php
 --- AdminLTE-5.17/scripts/pi-hole/php/gravity.sh.php	2022-11-14 20:00:36.000000000 +0100
-+++ AdminLTE-5.17.cust/scripts/pi-hole/php/gravity.sh.php	2022-11-15 09:57:08.764844569 +0100
++++ AdminLTE-5.17.cust/scripts/pi-hole/php/gravity.sh.php	2022-11-28 07:59:48.162860303 +0100
 @@ -34,7 +34,7 @@ function echoEvent($datatext)
      echo 'data: '.implode("\ndata: ", explode("\n", $datatext))."\n\n";
  }
@@ -24,7 +24,7 @@ diff -uprN AdminLTE-5.17/scripts/pi-hole/php/gravity.sh.php AdminLTE-5.17.cust/s
  }
 diff -uprN AdminLTE-5.17/scripts/pi-hole/php/queryads.php AdminLTE-5.17.cust/scripts/pi-hole/php/queryads.php
 --- AdminLTE-5.17/scripts/pi-hole/php/queryads.php	2022-11-14 20:00:36.000000000 +0100
-+++ AdminLTE-5.17.cust/scripts/pi-hole/php/queryads.php	2022-11-15 09:57:08.760844550 +0100
++++ AdminLTE-5.17.cust/scripts/pi-hole/php/queryads.php	2022-11-28 07:59:48.159860329 +0100
 @@ -50,7 +50,7 @@ if (isset($_GET['exact'])) {
      $exact = '';
  }
@@ -36,7 +36,7 @@ diff -uprN AdminLTE-5.17/scripts/pi-hole/php/queryads.php AdminLTE-5.17.cust/scr
  }
 diff -uprN AdminLTE-5.17/scripts/pi-hole/php/savesettings.php AdminLTE-5.17.cust/scripts/pi-hole/php/savesettings.php
 --- AdminLTE-5.17/scripts/pi-hole/php/savesettings.php	2022-11-14 20:00:36.000000000 +0100
-+++ AdminLTE-5.17.cust/scripts/pi-hole/php/savesettings.php	2022-11-15 09:57:08.762844560 +0100
++++ AdminLTE-5.17.cust/scripts/pi-hole/php/savesettings.php	2022-11-28 07:59:48.160860321 +0100
 @@ -424,7 +424,7 @@ if (isset($_POST['field'])) {
              if (isset($_POST['webtheme'])) {
                  global $available_themes;
@@ -48,7 +48,7 @@ diff -uprN AdminLTE-5.17/scripts/pi-hole/php/savesettings.php AdminLTE-5.17.cust
              $success .= 'The webUI settings have been updated';
 diff -uprN AdminLTE-5.17/scripts/pi-hole/php/sidebar.php AdminLTE-5.17.cust/scripts/pi-hole/php/sidebar.php
 --- AdminLTE-5.17/scripts/pi-hole/php/sidebar.php	2022-11-14 20:00:36.000000000 +0100
-+++ AdminLTE-5.17.cust/scripts/pi-hole/php/sidebar.php	2022-11-15 09:57:08.733844423 +0100
++++ AdminLTE-5.17.cust/scripts/pi-hole/php/sidebar.php	2022-11-28 07:59:48.131860577 +0100
 @@ -247,12 +247,6 @@
                                  Tail FTL.log
                              </a>
@@ -64,7 +64,7 @@ diff -uprN AdminLTE-5.17/scripts/pi-hole/php/sidebar.php AdminLTE-5.17.cust/scri
                              <a href="network.php">
 diff -uprN AdminLTE-5.17/scripts/pi-hole/php/tailLog.php AdminLTE-5.17.cust/scripts/pi-hole/php/tailLog.php
 --- AdminLTE-5.17/scripts/pi-hole/php/tailLog.php	2022-11-14 20:00:36.000000000 +0100
-+++ AdminLTE-5.17.cust/scripts/pi-hole/php/tailLog.php	2022-11-15 09:57:08.736844437 +0100
++++ AdminLTE-5.17.cust/scripts/pi-hole/php/tailLog.php	2022-11-28 07:59:48.134860550 +0100
 @@ -31,9 +31,9 @@ function formatLine($line)
  // usage of f-streams will be much faster for
  // files as large as the pihole.log
@@ -79,13 +79,13 @@ diff -uprN AdminLTE-5.17/scripts/pi-hole/php/tailLog.php AdminLTE-5.17.cust/scri
  if (!$file) {
 diff -uprN AdminLTE-5.17/scripts/pi-hole/php/update_checker.php AdminLTE-5.17.cust/scripts/pi-hole/php/update_checker.php
 --- AdminLTE-5.17/scripts/pi-hole/php/update_checker.php	2022-11-14 20:00:36.000000000 +0100
-+++ AdminLTE-5.17.cust/scripts/pi-hole/php/update_checker.php	2022-11-15 09:57:08.757844536 +0100
++++ AdminLTE-5.17.cust/scripts/pi-hole/php/update_checker.php	2022-11-28 07:59:48.155860365 +0100
 @@ -15,14 +15,14 @@ $versionsfile = '/etc/pihole/versions';
  
  if (!is_readable($versionsfile)) {
      $core_branch = 'master';
 -    $core_current = 'N/A';
-+    $core_current = "5.14.1";
++    $core_current = "5.14.2";
      $core_update = false;
  
      $web_branch = 'master';
@@ -103,11 +103,11 @@ diff -uprN AdminLTE-5.17/scripts/pi-hole/php/update_checker.php AdminLTE-5.17.cu
      $core_branch = $versions['CORE_BRANCH'];
      if ($core_branch !== 'master') {
 -        $core_current = 'vDev';
-+        $core_current = "5.14.1";
++        $core_current = "5.14.2";
          $core_commit = $versions['CORE_VERSION'];
      } else {
 -        $core_current = explode('-', $versions['CORE_VERSION'])[0];
-+        $core_current = "5.14.1";
++        $core_current = "5.14.2";
      }
  
      // Get Pi-hole web branch / version / commit

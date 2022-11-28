@@ -1,0 +1,438 @@
+diff -uprN pi-hole-5.14.2/adlists.list pi-hole-5.14.2.cust/adlists.list
+--- pi-hole-5.14.2/adlists.list	1970-01-01 01:00:00.000000000 +0100
++++ pi-hole-5.14.2.cust/adlists.list	2022-11-28 07:59:48.163860294 +0100
+@@ -0,0 +1,4 @@
++https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
++https://mirror1.malwaredomains.com/files/justdomains
++https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
++https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+diff -uprN pi-hole-5.14.2/advanced/Scripts/database_migration/gravity-db.sh pi-hole-5.14.2.cust/advanced/Scripts/database_migration/gravity-db.sh
+--- pi-hole-5.14.2/advanced/Scripts/database_migration/gravity-db.sh	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Scripts/database_migration/gravity-db.sh	2022-11-28 07:59:48.106860798 +0100
+@@ -10,7 +10,7 @@
+ # This file is copyright under the latest version of the EUPL.
+ # Please see LICENSE file for your rights under this license.
+ 
+-readonly scriptPath="/etc/.pihole/advanced/Scripts/database_migration/gravity"
++readonly scriptPath="/opt/pihole/database_migration/gravity"
+ 
+ upgrade_gravityDB(){
+ 	local database piholeDir auditFile version
+diff -uprN pi-hole-5.14.2/advanced/Scripts/pihole-reenable.sh pi-hole-5.14.2.cust/advanced/Scripts/pihole-reenable.sh
+--- pi-hole-5.14.2/advanced/Scripts/pihole-reenable.sh	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Scripts/pihole-reenable.sh	2022-11-28 07:59:48.112860745 +0100
+@@ -17,7 +17,7 @@
+ # This ensures that pihole ends up in the correct state after a sequence of
+ # commands suchs as: `pihole disable 30s; pihole enable; pihole disable`
+ 
+-readonly PI_HOLE_BIN_DIR="/usr/local/bin"
++readonly PI_HOLE_BIN_DIR="/usr/bin"
+ 
+ sleep "${1}"
+ "${PI_HOLE_BIN_DIR}"/pihole enable
+diff -uprN pi-hole-5.14.2/advanced/Scripts/piholeLogFlush.sh pi-hole-5.14.2.cust/advanced/Scripts/piholeLogFlush.sh
+--- pi-hole-5.14.2/advanced/Scripts/piholeLogFlush.sh	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Scripts/piholeLogFlush.sh	2022-11-28 07:59:48.124860639 +0100
+@@ -14,7 +14,7 @@ source ${colfile}
+ # In case we're running at the same time as a system logrotate, use a
+ # separate logrotate state file to prevent stepping on each other's
+ # toes.
+-STATEFILE="/var/lib/logrotate/pihole"
++STATEFILE="/var/lib/logrotate_pihole.status"
+ 
+ # Determine database location
+ # Obtain DBFILE=... setting from pihole-FTL.db
+@@ -31,35 +31,35 @@ if [ -z "$DBFILE" ]; then
+ fi
+ 
+ if [[ "$@" != *"quiet"* ]]; then
+-    echo -ne "  ${INFO} Flushing /var/log/pihole/pihole.log ..."
++    echo -ne "  ${INFO} Flushing /run/log/pihole/pihole.log ..."
+ fi
+ if [[ "$@" == *"once"* ]]; then
+     # Nightly logrotation
+-    if command -v /usr/sbin/logrotate >/dev/null; then
++    if command -v /usr/bin/logrotate >/dev/null; then
+         # Logrotate once
+-        /usr/sbin/logrotate --force --state "${STATEFILE}" /etc/pihole/logrotate
++        /usr/bin/logrotate --force --state "${STATEFILE}" /etc/pihole/logrotate
+     else
+         # Copy pihole.log over to pihole.log.1
+         # and empty out pihole.log
+         # Note that moving the file is not an option, as
+         # dnsmasq would happily continue writing into the
+         # moved file (it will have the same file handler)
+-        cp -p /var/log/pihole/pihole.log /var/log/pihole/pihole.log.1
+-        echo " " > /var/log/pihole/pihole.log
+-        chmod 640 /var/log/pihole/pihole.log
++        cp -p /run/log/pihole/pihole.log /run/log/pihole/pihole.log.1
++        echo " " > /run/log/pihole/pihole.log
++        chmod 640 /run/log/pihole/pihole.log
+     fi
+ else
+     # Manual flushing
+-    if command -v /usr/sbin/logrotate >/dev/null; then
++    if command -v /usr/bin/logrotate >/dev/null; then
+         # Logrotate twice to move all data out of sight of FTL
+-        /usr/sbin/logrotate --force --state "${STATEFILE}" /etc/pihole/logrotate; sleep 3
+-        /usr/sbin/logrotate --force --state "${STATEFILE}" /etc/pihole/logrotate
++        /usr/bin/logrotate --force --state "${STATEFILE}" /etc/pihole/logrotate; sleep 3
++        /usr/bin/logrotate --force --state "${STATEFILE}" /etc/pihole/logrotate
+     else
+         # Flush both pihole.log and pihole.log.1 (if existing)
+-        echo " " > /var/log/pihole/pihole.log
+-        if [ -f /var/log/pihole/pihole.log.1 ]; then
+-            echo " " > /var/log/pihole/pihole.log.1
+-            chmod 640 /var/log/pihole/pihole.log.1
++        echo " " > /run/log/pihole/pihole.log
++        if [ -f /run/log/pihole/pihole.log.1 ]; then
++            echo " " > /run/log/pihole/pihole.log.1
++            chmod 640 /run/log/pihole/pihole.log.1
+         fi
+     fi
+     # Delete most recent 24 hours from FTL's database, leave even older data intact (don't wipe out all history)
+@@ -70,6 +70,6 @@ else
+ fi
+ 
+ if [[ "$@" != *"quiet"* ]]; then
+-    echo -e "${OVER}  ${TICK} Flushed /var/log/pihole/pihole.log"
++    echo -e "${OVER}  ${TICK} Flushed /run/log/pihole/pihole.log"
+     echo -e "  ${TICK} Deleted ${deleted} queries from database"
+ fi
+diff -uprN pi-hole-5.14.2/advanced/Scripts/updatecheck.sh pi-hole-5.14.2.cust/advanced/Scripts/updatecheck.sh
+--- pi-hole-5.14.2/advanced/Scripts/updatecheck.sh	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Scripts/updatecheck.sh	2022-11-28 07:59:48.056861240 +0100
+@@ -8,21 +8,20 @@
+ # This file is copyright under the latest version of the EUPL.
+ # Please see LICENSE file for your rights under this license.
+ 
++declare -A arch_versions
++arch_versions["/etc/.pihole"]="v5.14.2"
++arch_versions["/var/www/html/admin"]="v5.17"
++
+ function get_local_branch() {
+-    # Return active branch
+-    cd "${1}" 2> /dev/null || return 1
+-    git rev-parse --abbrev-ref HEAD || return 1
++    echo "master" || return 1
+ }
+ 
+ function get_local_version() {
+-    # Return active version
+-    cd "${1}" 2> /dev/null || return 1
+-    git describe --tags --always 2> /dev/null || return 1
++    echo "${arch_versions["${1}"]}" || return 1
+ }
+ 
+ function get_local_hash() {
+-    cd "${1}" 2> /dev/null || return 1
+-    git rev-parse --short=8 HEAD || return 1
++    echo "builtfromreleasetarball" || return 1
+ }
+ 
+ function get_remote_version() {
+diff -uprN pi-hole-5.14.2/advanced/Scripts/utils.sh pi-hole-5.14.2.cust/advanced/Scripts/utils.sh
+--- pi-hole-5.14.2/advanced/Scripts/utils.sh	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Scripts/utils.sh	2022-11-28 07:59:48.110860762 +0100
+@@ -104,7 +104,7 @@ getFTLAPIPort(){
+ #######################
+ getFTLPIDFile() {
+   local FTLCONFFILE="/etc/pihole/pihole-FTL.conf"
+-  local DEFAULT_PID_FILE="/run/pihole-FTL.pid"
++  local DEFAULT_PID_FILE="/run/pihole-ftl/pihole-FTL.pid"
+   local FTL_PID_FILE
+ 
+   if [ -s "${FTLCONFFILE}" ]; then
+@@ -122,7 +122,7 @@ getFTLPIDFile() {
+ # returns FTL's PID based on the content of the pihole-FTL.pid file
+ #
+ # Takes one argument: path to pihole-FTL.pid
+-# Example getFTLPID "/run/pihole-FTL.pid"
++# Example getFTLPID "/run/pihole-ftl/pihole-FTL.pid"
+ #######################
+ getFTLPID() {
+     local FTL_PID_FILE="${1}"
+diff -uprN pi-hole-5.14.2/advanced/Scripts/webpage.sh pi-hole-5.14.2.cust/advanced/Scripts/webpage.sh
+--- pi-hole-5.14.2/advanced/Scripts/webpage.sh	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Scripts/webpage.sh	2022-11-28 07:59:48.127860612 +0100
+@@ -26,7 +26,7 @@ readonly gravityDBfile="/etc/pihole/grav
+ readonly PI_HOLE_FILES_DIR="/etc/.pihole"
+ # shellcheck disable=SC2034  # used in basic-install to source the script without running it
+ SKIP_INSTALL="true"
+-source "${PI_HOLE_FILES_DIR}/automated install/basic-install.sh"
++source "/opt/pihole/basic-install.sh"
+ 
+ utilsfile="/opt/pihole/utils.sh"
+ source "${utilsfile}"
+diff -uprN pi-hole-5.14.2/advanced/Templates/logrotate pi-hole-5.14.2.cust/advanced/Templates/logrotate
+--- pi-hole-5.14.2/advanced/Templates/logrotate	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Templates/logrotate	2022-11-28 07:59:48.121860665 +0100
+@@ -1,4 +1,4 @@
+-/var/log/pihole/pihole.log {
++/run/log/pihole/pihole.log {
+ 	# su #
+ 	daily
+ 	copytruncate
+@@ -9,7 +9,7 @@
+ 	nomail
+ }
+ 
+-/var/log/pihole/FTL.log {
++/run/log/pihole-ftl/pihole-FTL.log {
+ 	# su #
+ 	weekly
+ 	copytruncate
+diff -uprN pi-hole-5.14.2/advanced/Templates/pihole.sudo pi-hole-5.14.2.cust/advanced/Templates/pihole.sudo
+--- pi-hole-5.14.2/advanced/Templates/pihole.sudo	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/Templates/pihole.sudo	2022-11-28 07:59:48.162860303 +0100
+@@ -7,3 +7,4 @@
+ # This file is copyright under the latest version of the EUPL.
+ # Please see LICENSE file for your rights under this license.
+ #
++http ALL=(ALL:ALL) NOPASSWD: /usr/bin/pihole
+diff -uprN pi-hole-5.14.2/advanced/dnsmasq.conf.original pi-hole-5.14.2.cust/advanced/dnsmasq.conf.original
+--- pi-hole-5.14.2/advanced/dnsmasq.conf.original	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/advanced/dnsmasq.conf.original	2022-11-28 07:59:48.162860303 +0100
+@@ -646,3 +646,4 @@
+ 
+ # Include all files in a directory which end in .conf
+ #conf-dir=/etc/dnsmasq.d/*.conf
++conf-dir=/etc/dnsmasq.d/,*.conf
+diff -uprN pi-hole-5.14.2/dns-servers.conf pi-hole-5.14.2.cust/dns-servers.conf
+--- pi-hole-5.14.2/dns-servers.conf	1970-01-01 01:00:00.000000000 +0100
++++ pi-hole-5.14.2.cust/dns-servers.conf	2022-11-28 07:59:48.163860294 +0100
+@@ -0,0 +1,9 @@
++Google (ECS);8.8.8.8;8.8.4.4;2001:4860:4860:0:0:0:0:8888;2001:4860:4860:0:0:0:0:8844
++OpenDNS (ECS, DNSSEC);208.67.222.222;208.67.220.220;2620:119:35::35;2620:119:53::53
++Level3;4.2.2.1;4.2.2.2;;
++Comodo;8.26.56.26;8.20.247.20;;
++DNS.WATCH;84.200.69.80;84.200.70.40;2001:1608:10:25:0:0:1c04:b12f;2001:1608:10:25:0:0:9249:d69b
++Quad9 (filtered, DNSSEC);9.9.9.9;149.112.112.112;2620:fe::fe;2620:fe::9
++Quad9 (unfiltered, no DNSSEC);9.9.9.10;149.112.112.10;2620:fe::10;2620:fe::fe:10
++Quad9 (filtered + ECS);9.9.9.11;149.112.112.11;2620:fe::11;2620:fe::fe:11
++Cloudflare;1.1.1.1;1.0.0.1;2606:4700:4700::1111;2606:4700:4700::1001
+diff -uprN pi-hole-5.14.2/gravity.sh pi-hole-5.14.2.cust/gravity.sh
+--- pi-hole-5.14.2/gravity.sh	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/gravity.sh	2022-11-28 07:59:48.104860816 +0100
+@@ -16,10 +16,10 @@ export LC_ALL=C
+ coltable="/opt/pihole/COL_TABLE"
+ source "${coltable}"
+ # shellcheck disable=SC1091
+-source "/etc/.pihole/advanced/Scripts/database_migration/gravity-db.sh"
++source "/opt/pihole/database_migration/gravity-db.sh"
+ 
+ basename="pihole"
+-PIHOLE_COMMAND="/usr/local/bin/${basename}"
++PIHOLE_COMMAND="/usr/bin/${basename}"
+ 
+ piholeDir="/etc/${basename}"
+ 
+@@ -36,8 +36,8 @@ piholeGitDir="/etc/.pihole"
+ gravityDBfile_default="${piholeDir}/gravity.db"
+ # GRAVITYDB may be overwritten by source pihole-FTL.conf below
+ GRAVITYDB="${gravityDBfile_default}"
+-gravityDBschema="${piholeGitDir}/advanced/Templates/gravity.db.sql"
+-gravityDBcopy="${piholeGitDir}/advanced/Templates/gravity_copy.sql"
++gravityDBschema="/opt/pihole/gravity.db.sql"
++gravityDBcopy="/opt/pihole/gravity_copy.sql"
+ 
+ domainsExtension="domains"
+ curl_connect_timeout=10
+diff -uprN pi-hole-5.14.2/pihole pi-hole-5.14.2.cust/pihole
+--- pi-hole-5.14.2/pihole	2022-11-27 22:31:19.000000000 +0100
++++ pi-hole-5.14.2.cust/pihole	2022-11-28 07:59:48.113860736 +0100
+@@ -15,7 +15,7 @@ readonly PI_HOLE_SCRIPT_DIR="/opt/pihole
+ # they might get set again when the installer is sourced. This causes an
+ # error due to modifying a readonly variable.
+ setupVars="/etc/pihole/setupVars.conf"
+-PI_HOLE_BIN_DIR="/usr/local/bin"
++PI_HOLE_BIN_DIR="/usr/bin"
+ 
+ readonly colfile="${PI_HOLE_SCRIPT_DIR}/COL_TABLE"
+ source "${colfile}"
+@@ -62,17 +62,6 @@ arpFunc() {
+   exit 0
+ }
+ 
+-updatePiholeFunc() {
+-  shift
+-  "${PI_HOLE_SCRIPT_DIR}"/update.sh "$@"
+-  exit 0
+-}
+-
+-reconfigurePiholeFunc() {
+-  /etc/.pihole/automated\ install/basic-install.sh --reconfigure
+-  exit 0;
+-}
+-
+ updateGravityFunc() {
+   exec "${PI_HOLE_SCRIPT_DIR}"/gravity.sh "$@"
+ }
+@@ -90,11 +79,6 @@ chronometerFunc() {
+ }
+ 
+ 
+-uninstallFunc() {
+-  "${PI_HOLE_SCRIPT_DIR}"/uninstall.sh
+-  exit 0
+-}
+-
+ versionFunc() {
+   shift
+   exec "${PI_HOLE_SCRIPT_DIR}"/version.sh "$@"
+@@ -139,7 +123,7 @@ restartDNS() {
+     fi
+   else
+     # A full restart has been requested
+-    svc="service pihole-FTL restart"
++    svc="systemctl restart pihole-FTL"
+     str="Restarting DNS server"
+     icon="${TICK}"
+   fi
+@@ -241,9 +225,9 @@ Example: 'pihole logging on'
+ Specify whether the Pi-hole log should be used
+ 
+ Options:
+-  on                  Enable the Pi-hole log at /var/log/pihole/pihole.log
+-  off                 Disable and flush the Pi-hole log at /var/log/pihole/pihole.log
+-  off noflush         Disable the Pi-hole log at /var/log/pihole/pihole.log"
++  on                  Enable the Pi-hole log at /run/log/pihole/pihole.log
++  off                 Disable and flush the Pi-hole log at /run/log/pihole/pihole.log
++  off noflush         Disable the Pi-hole log at /run/log/pihole/pihole.log"
+     exit 0
+   elif [[ "${1}" == "off" ]]; then
+     # Disable logging
+@@ -372,7 +356,7 @@ tailFunc() {
+   # Color blocklist/blacklist/wildcard entries as red
+   # Color A/AAAA/DHCP strings as white
+   # Color everything else as gray
+-  tail -f /var/log/pihole/pihole.log | grep --line-buffered "${1}" | sed -E \
++  tail -f /run/log/pihole/pihole.log | grep --line-buffered "${1}" | sed -E \
+     -e "s,($(date +'%b %d ')| dnsmasq\[[0-9]*\]),,g" \
+     -e "s,(.*(blacklisted |gravity blocked ).*),${COL_RED}&${COL_NC}," \
+     -e "s,.*(query\\[A|DHCP).*,${COL_NC}&${COL_NC}," \
+@@ -380,50 +364,6 @@ tailFunc() {
+   exit 0
+ }
+ 
+-piholeCheckoutFunc() {
+-  if [[ "$2" == "-h" ]] || [[ "$2" == "--help" ]]; then
+-    echo "Usage: pihole checkout [repo] [branch]
+-Example: 'pihole checkout master' or 'pihole checkout core dev'
+-Switch Pi-hole subsystems to a different GitHub branch
+-
+-Repositories:
+-  core [branch]       Change the branch of Pi-hole's core subsystem
+-  web [branch]        Change the branch of Web Interface subsystem
+-  ftl [branch]        Change the branch of Pi-hole's FTL subsystem
+-
+-Branches:
+-  master              Update subsystems to the latest stable release
+-  dev                 Update subsystems to the latest development release
+-  branchname          Update subsystems to the specified branchname"
+-    exit 0
+-  fi
+-
+-  source "${PI_HOLE_SCRIPT_DIR}"/piholeCheckout.sh
+-  shift
+-  checkout "$@"
+-}
+-
+-tricorderFunc() {
+-  local tricorder_token
+-  if [[ ! -p "/dev/stdin" ]]; then
+-    echo -e "  ${INFO} Please do not call Tricorder directly"
+-    exit 1
+-  fi
+-
+-  tricorder_token=$(curl --silent --fail --show-error --upload-file "-" https://tricorder.pi-hole.net/upload < /dev/stdin 2>&1)
+-  if [[ "${tricorder_token}" != "https://tricorder.pi-hole.net/"* ]]; then
+-      echo -e "${CROSS} uploading failed, contact Pi-hole support for assistance."
+-      # Log curl error (if available)
+-      if [ -n "${tricorder_token}" ]; then
+-          echo -e "${INFO} Error message: ${COL_RED}${tricorder_token}${COL_NC}\\n"
+-          tricorder_token=""
+-      fi
+-      exit 1
+-  fi
+-  echo "Upload successful, your token is: ${COL_GREEN}${tricorder_token}${COL_NC}"
+-  exit 0
+-}
+-
+ updateCheckFunc() {
+   "${PI_HOLE_SCRIPT_DIR}"/updatecheck.sh "$@"
+   exit 0
+@@ -446,9 +386,7 @@ Whitelist/Blacklist Options:
+ Debugging Options:
+   -d, debug           Start a debugging session
+                         Add '-c' or '--check-database' to include a Pi-hole database integrity check
+-                        Add '-a' to automatically upload the log to tricorder.pi-hole.net
+   -f, flush           Flush the Pi-hole log
+-  -r, reconfigure     Reconfigure or Repair Pi-hole subsystems
+   -t, tail [arg]      View the live output of the Pi-hole log.
+                       Add an optional argument to filter the log
+                       (regular expressions are supported)
+@@ -465,11 +403,9 @@ Options:
+                         Add '-h' for more info on logging usage
+   -q, query           Query the adlists for a specified domain
+                         Add '-h' for more info on query usage
+-  -up, updatePihole   Update Pi-hole subsystems
+                         Add '--check-only' to exit script before update is performed.
+   -v, version         Show installed versions of Pi-hole, Web Interface & FTL
+                         Add '-h' for more info on version usage
+-  uninstall           Uninstall Pi-hole from your system
+   status              Display the running status of Pi-hole subsystems
+   enable              Enable Pi-hole subsystems
+   disable             Disable Pi-hole subsystems
+@@ -477,8 +413,6 @@ Options:
+   restartdns          Full restart Pi-hole subsystems
+                         Add 'reload' to update the lists and flush the cache without restarting the DNS server
+                         Add 'reload-lists' to only update the lists WITHOUT flushing the cache or restarting the DNS server
+-  checkout            Switch Pi-hole subsystems to a different GitHub branch
+-                        Add '-h' for more info on checkout usage
+   arpflush            Flush information stored in Pi-hole's network tables";
+   exit 0
+ }
+@@ -495,7 +429,6 @@ case "${1}" in
+   "-q" | "query"                ) queryFunc "$@";;
+   "status"                      ) statusFunc "$2";;
+ 
+-  "tricorder"                   ) tricorderFunc;;
+ 
+   # we need to add all arguments that require sudo power to not trigger the * argument
+   "-w" | "whitelist"            ) ;;
+@@ -505,17 +438,13 @@ case "${1}" in
+   "--white-regex" | "white-regex" ) ;;
+   "--white-wild" | "white-wild"   ) ;;
+   "-f" | "flush"                ) ;;
+-  "-up" | "updatePihole"        ) ;;
+-  "-r"  | "reconfigure"         ) ;;
+   "-g" | "updateGravity"        ) ;;
+   "-l" | "logging"              ) ;;
+-  "uninstall"                   ) ;;
+   "enable"                      ) ;;
+   "disable"                     ) ;;
+   "-d" | "debug"                ) ;;
+   "restartdns"                  ) ;;
+   "-a" | "admin"                ) ;;
+-  "checkout"                    ) ;;
+   "updatechecker"               ) ;;
+   "arpflush"                    ) ;;
+   "-t" | "tail"                 ) ;;
+@@ -543,16 +472,12 @@ case "${1}" in
+   "--white-wild" | "white-wild"   ) listFunc "$@";;
+   "-d" | "debug"                ) debugFunc "$@";;
+   "-f" | "flush"                ) flushFunc "$@";;
+-  "-up" | "updatePihole"        ) updatePiholeFunc "$@";;
+-  "-r"  | "reconfigure"         ) reconfigurePiholeFunc;;
+   "-g" | "updateGravity"        ) updateGravityFunc "$@";;
+   "-l" | "logging"              ) piholeLogging "$@";;
+-  "uninstall"                   ) uninstallFunc;;
+   "enable"                      ) piholeEnable 1;;
+   "disable"                     ) piholeEnable 0 "$2";;
+   "restartdns"                  ) restartDNS "$2";;
+   "-a" | "admin"                ) webpageFunc "$@";;
+-  "checkout"                    ) piholeCheckoutFunc "$@";;
+   "updatechecker"               ) shift; updateCheckFunc "$@";;
+   "arpflush"                    ) arpFunc "$@";;
+   "-t" | "tail"                 ) tailFunc "$2";;
