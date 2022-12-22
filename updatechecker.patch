@@ -25,7 +25,7 @@ diff -Naur pi-hole/advanced/Scripts/updatecheck.sh pi-hole.a/advanced/Scripts/up
  
  function get_local_hash() {
 -    cd "${1}" 2> /dev/null || return 1
--    git rev-parse --short HEAD || return 1
+-    git rev-parse --short=8 HEAD || return 1
 +    echo "builtfromreleasetarball" || return 1
  }
  
