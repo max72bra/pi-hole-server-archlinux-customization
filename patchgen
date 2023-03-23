@@ -1,8 +1,8 @@
 #!/bin/sh
 
-_pkgver=5.15.5
+_pkgver=5.16.1
 _pkgrel=1
-_wwwpkgver=5.18.4
+_wwwpkgver=5.19
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$_pkgver"
