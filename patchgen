@@ -1,8 +1,8 @@
 #!/bin/sh
 
-_pkgver=5.16.2
+_pkgver=5.17
 _pkgrel=1
-_wwwpkgver=5.19
+_wwwpkgver=5.20
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$_pkgver"
@@ -155,8 +155,8 @@ if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bi
 # -----------------
 
 # chronometer and co. setup
-sed -i "s|\${PI_HOLE_FILES_DIR}/automated install/basic-install.sh|/opt/pihole/basic-install.sh|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
-if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 1" && exit 1 ; fi
+#sed -i "s|\${PI_HOLE_FILES_DIR}/automated install/basic-install.sh|/opt/pihole/basic-install.sh|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
+#if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 1" && exit 1 ; fi
 #sed -i "s|/run/pihole-FTL.port|/run/pihole-ftl/pihole-FTL.port|w $_ssc" "$dircoreb"/advanced/Scripts/chronometer.sh
 #if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: chronometer and co. setup 2" && exit 1 ; fi
 
