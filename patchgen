@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _pkgver=5.17.1
-_pkgrel=1
+_pkgrel=2
 _wwwpkgver=5.20.1
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
 source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
@@ -151,6 +151,12 @@ sed -i "s|/usr/sbin|/usr/bin|w $_ssc" "$dircoreb"/advanced/Scripts/piholeLogFlus
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 3" && exit 1 ; fi
 sed -i "s|/var/lib/logrotate/pihole|/var/lib/logrotate_pihole.status|w $_ssc" "$dircoreb"/advanced/Scripts/piholeLogFlush.sh
 if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: change log and bin location to logrotate 3" && exit 1 ; fi
+
+# -----------------
+
+# webroot setup
+sed -i "s|webroot=\"/var/www/html\"|webroot=\"/srv/http/pihole\"|w $_ssc" "$dircoreb"/advanced/Scripts/webpage.sh
+if [ -s $_ssc ] ; then rm $_ssc ; else echo "   ==> Sed error: webroot setup" && exit 1 ; fi
 
 # -----------------
 
