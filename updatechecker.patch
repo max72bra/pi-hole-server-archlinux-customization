@@ -1,13 +1,12 @@
-diff -Naur pi-hole/advanced/Scripts/updatecheck.sh pi-hole.a/advanced/Scripts/updatecheck.sh
---- pi-hole/advanced/Scripts/updatecheck.sh	2022-11-14 23:21:16.000000000 +0100
-+++ pi-hole.a/advanced/Scripts/updatecheck.sh	2022-11-15 09:05:18.671731814 +0100
+--- pi-hole/advanced/Scripts/updatecheck.sh	2023-05-30 20:27:52.000000000 +0200
++++ pi-hole.a/advanced/Scripts/updatecheck.sh	2023-08-21 18:44:40.193029248 +0200
 @@ -8,21 +8,20 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
  
-+declare -A arch_versions
-+arch_versions["/etc/.pihole"]="{{_pkgver}}"
-+arch_versions["/var/www/html/admin"]="{{_wwwpkgver}}"
+++declare -A arch_versions
+++arch_versions["/etc/.pihole"]="{{_pkgver}}"
+++arch_versions["/var/www/html/admin"]="{{_wwwpkgver}}"
 +
  function get_local_branch() {
 -    # Return active branch
@@ -30,3 +29,12 @@ diff -Naur pi-hole/advanced/Scripts/updatecheck.sh pi-hole.a/advanced/Scripts/up
  }
  
  function get_remote_version() {
+@@ -31,7 +30,7 @@
+ 
+ 
+ function get_remote_hash(){
+-    git ls-remote "https://github.com/pi-hole/${1}" --tags "${2}" | awk '{print substr($0, 0,8);}' || return 1
++    echo "builtfromreleasetarball" || return 1
+ }
+ 
+ # Source the setupvars config file
