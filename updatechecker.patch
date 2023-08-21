@@ -4,10 +4,10 @@
  # This file is copyright under the latest version of the EUPL.
  # Please see LICENSE file for your rights under this license.
  
-++declare -A arch_versions
-++arch_versions["/etc/.pihole"]="{{_pkgver}}"
-++arch_versions["/var/www/html/admin"]="{{_wwwpkgver}}"
-+
++declare -A arch_versions
++arch_versions["/etc/.pihole"]="{{_pkgver}}"
++arch_versions["/var/www/html/admin"]="{{_wwwpkgver}}"
+
  function get_local_branch() {
 -    # Return active branch
 -    cd "${1}" 2> /dev/null || return 1
