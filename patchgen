@@ -1,13 +1,13 @@
 #!/bin/sh
 
-_pkgver=5.17.1
-_pkgrel=3
-_wwwpkgver=5.20.1
+_pkgver=5.17.2
+_pkgrel=1
+_wwwpkgver=5.20.2
 source_core="https://github.com/pi-hole/pi-hole/archive/v$_pkgver.tar.gz"
-source_admin="https://github.com/pi-hole/AdminLTE/archive/v$_wwwpkgver.tar.gz"
+source_admin="https://github.com/pi-hole/web/archive/v$_wwwpkgver.tar.gz"
 dircorea="pi-hole-$_pkgver"
 dircoreb="$dircorea.cust"
-diradmina="AdminLTE-$_wwwpkgver"
+diradmina="web-$_wwwpkgver"
 diradminb="$diradmina.cust"
 
 _ssc="/tmp/sedcontrol"
