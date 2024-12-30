@@ -1,6 +1,6 @@
 diff -uprN web-5.21/scripts/pi-hole/php/func.php web-5.21.cust/scripts/pi-hole/php/func.php
 --- web-5.21/scripts/pi-hole/php/func.php	2023-11-21 21:15:32.000000000 +0100
-+++ web-5.21.cust/scripts/pi-hole/php/func.php	2024-07-05 21:38:05.078799396 +0200
++++ web-5.21.cust/scripts/pi-hole/php/func.php	2024-12-30 09:05:55.689556804 +0100
 @@ -167,7 +167,7 @@ function pihole_execute($argument_string
      $escaped = escapeshellcmd($argument_string);
      $output = null;
@@ -12,7 +12,7 @@ diff -uprN web-5.21/scripts/pi-hole/php/func.php web-5.21.cust/scripts/pi-hole/p
          trigger_error("Executing {$command} failed.", E_USER_WARNING);
 diff -uprN web-5.21/scripts/pi-hole/php/gravity.sh.php web-5.21.cust/scripts/pi-hole/php/gravity.sh.php
 --- web-5.21/scripts/pi-hole/php/gravity.sh.php	2023-11-21 21:15:32.000000000 +0100
-+++ web-5.21.cust/scripts/pi-hole/php/gravity.sh.php	2024-07-05 21:38:05.172133539 +0200
++++ web-5.21.cust/scripts/pi-hole/php/gravity.sh.php	2024-12-30 09:05:55.689556804 +0100
 @@ -41,7 +41,7 @@ function echoEvent($datatext)
      echo 'data: '.implode("\ndata: ", explode("\n", $datatext))."\n\n";
  }
@@ -24,7 +24,7 @@ diff -uprN web-5.21/scripts/pi-hole/php/gravity.sh.php web-5.21.cust/scripts/pi-
  }
 diff -uprN web-5.21/scripts/pi-hole/php/queryads.php web-5.21.cust/scripts/pi-hole/php/queryads.php
 --- web-5.21/scripts/pi-hole/php/queryads.php	2023-11-21 21:15:32.000000000 +0100
-+++ web-5.21.cust/scripts/pi-hole/php/queryads.php	2024-07-05 21:38:05.078799396 +0200
++++ web-5.21.cust/scripts/pi-hole/php/queryads.php	2024-12-30 09:05:55.689556804 +0100
 @@ -61,7 +61,7 @@ if (isset($_GET['showall'])) {
      $options .= ' -all';
  }
@@ -36,7 +36,7 @@ diff -uprN web-5.21/scripts/pi-hole/php/queryads.php web-5.21.cust/scripts/pi-ho
  }
 diff -uprN web-5.21/scripts/pi-hole/php/savesettings.php web-5.21.cust/scripts/pi-hole/php/savesettings.php
 --- web-5.21/scripts/pi-hole/php/savesettings.php	2023-11-21 21:15:32.000000000 +0100
-+++ web-5.21.cust/scripts/pi-hole/php/savesettings.php	2024-07-05 21:38:05.172133539 +0200
++++ web-5.21.cust/scripts/pi-hole/php/savesettings.php	2024-12-30 09:05:55.689556804 +0100
 @@ -425,7 +425,7 @@ if (isset($_POST['field'])) {
              if (isset($_POST['webtheme'])) {
                  global $available_themes;
@@ -48,7 +48,7 @@ diff -uprN web-5.21/scripts/pi-hole/php/savesettings.php web-5.21.cust/scripts/p
              $success .= 'The webUI settings have been updated';
 diff -uprN web-5.21/scripts/pi-hole/php/sidebar.php web-5.21.cust/scripts/pi-hole/php/sidebar.php
 --- web-5.21/scripts/pi-hole/php/sidebar.php	2023-11-21 21:15:32.000000000 +0100
-+++ web-5.21.cust/scripts/pi-hole/php/sidebar.php	2024-07-05 21:38:04.878797662 +0200
++++ web-5.21.cust/scripts/pi-hole/php/sidebar.php	2024-12-30 09:05:55.669556811 +0100
 @@ -248,12 +248,6 @@
                                  Tail FTL.log
                              </a>
@@ -64,7 +64,7 @@ diff -uprN web-5.21/scripts/pi-hole/php/sidebar.php web-5.21.cust/scripts/pi-hol
                              <a href="network.php">
 diff -uprN web-5.21/scripts/pi-hole/php/tailLog.php web-5.21.cust/scripts/pi-hole/php/tailLog.php
 --- web-5.21/scripts/pi-hole/php/tailLog.php	2023-11-21 21:15:32.000000000 +0100
-+++ web-5.21.cust/scripts/pi-hole/php/tailLog.php	2024-07-05 21:38:04.878797662 +0200
++++ web-5.21.cust/scripts/pi-hole/php/tailLog.php	2024-12-30 09:05:55.669556811 +0100
 @@ -31,9 +31,9 @@ function formatLine($line)
  // usage of f-streams will be much faster for
  // files as large as the pihole.log
@@ -79,13 +79,13 @@ diff -uprN web-5.21/scripts/pi-hole/php/tailLog.php web-5.21.cust/scripts/pi-hol
  if (!$file) {
 diff -uprN web-5.21/scripts/pi-hole/php/update_checker.php web-5.21.cust/scripts/pi-hole/php/update_checker.php
 --- web-5.21/scripts/pi-hole/php/update_checker.php	2023-11-21 21:15:32.000000000 +0100
-+++ web-5.21.cust/scripts/pi-hole/php/update_checker.php	2024-07-05 21:38:05.078799396 +0200
++++ web-5.21.cust/scripts/pi-hole/php/update_checker.php	2024-12-30 09:05:55.686223472 +0100
 @@ -15,14 +15,14 @@ $versionsfile = '/etc/pihole/versions';
  
  if (!is_readable($versionsfile)) {
      $core_branch = 'master';
 -    $core_current = 'N/A';
-+    $core_current = "5.18.3";
++    $core_current = "5.18.4";
      $core_update = false;
  
      $web_branch = 'master';
@@ -103,11 +103,11 @@ diff -uprN web-5.21/scripts/pi-hole/php/update_checker.php web-5.21.cust/scripts
      $core_branch = $versions['CORE_BRANCH'];
      if ($core_branch !== 'master') {
 -        $core_current = 'vDev';
-+        $core_current = "5.18.3";
++        $core_current = "5.18.4";
          $core_commit = $versions['CORE_VERSION'];
      } else {
 -        $core_current = explode('-', $versions['CORE_VERSION'])[0];
-+        $core_current = "5.18.3";
++        $core_current = "5.18.4";
      }
  
      // Get Pi-hole web branch / version / commit
